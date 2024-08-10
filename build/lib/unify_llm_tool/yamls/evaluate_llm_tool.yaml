@@ -1,0 +1,13 @@
+unify_llm_tool.tools.evaluate_llm_tool:
+  name: Unify Tool
+  type: python
+  inputs:
+    models:
+      type:
+        - list
+    prompt_set:
+      type:
+        - list
+  description: Tool for benchmarking
+  module: unify_llm_tool.tools.evaluate_llm_tool
+  function: benchmark_models
