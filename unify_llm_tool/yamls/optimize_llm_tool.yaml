@@ -1,4 +1,4 @@
-unify_llm_tool.tools.optimize_llm_tool:
+unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   function: optimize_llm
   inputs:
     connection:
