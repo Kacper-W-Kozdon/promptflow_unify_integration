@@ -12,5 +12,5 @@ unify_integration.tools.unify_llm_tool.optimize_llm_tool:
       type:
         - str
   description: Tool for routing and LLM optimization
-  module: unify_integration.tools.optimize_llm_tool
+  module: unify_integration.unify_llm_tool.tools.optimize_llm_tool
   function: optimize_llm
