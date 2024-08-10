@@ -4,7 +4,7 @@ PACKAGE_NAME = "unify_integration"
 
 setup(
     name=PACKAGE_NAME,
-    version="0.0.1",
+    version="0.0.11",
     description="This is my tools package",
     packages=find_packages(),
     entry_points={
