@@ -1,4 +1,4 @@
-unify_llm_tool.tools.single_sign_on_tool:
+unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   function: single_sign_on
   inputs:
     config:
