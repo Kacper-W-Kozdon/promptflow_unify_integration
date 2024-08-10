@@ -13,3 +13,6 @@ unify_llm_tool/tools/evaluate_llm_tool.py
 unify_llm_tool/tools/optimize_llm_tool.py
 unify_llm_tool/tools/single_sign_on_tool.py
 unify_llm_tool/tools/utils.py
+unify_llm_tool/yamls/evaluate_llm_tool.yaml
+unify_llm_tool/yamls/optimize_llm_tool.yaml
+unify_llm_tool/yamls/single_sign_on_tool.yaml
