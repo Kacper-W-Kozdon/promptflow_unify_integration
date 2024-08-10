@@ -1,4 +1,4 @@
-unify_integration.unify_llm_tool.tools.optimize_llm_tool:
+unify_llm_tool.tools.optimize_llm_tool:
   name: Unify Tool
   type: python
   inputs:
