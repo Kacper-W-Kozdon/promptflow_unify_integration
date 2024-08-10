@@ -11,4 +11,3 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   name: Unify Tool
   description: Tool for single sign on to multiple endpoints
   type: python
-  
