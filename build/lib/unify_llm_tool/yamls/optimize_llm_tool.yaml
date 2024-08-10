@@ -11,6 +11,6 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       type:
         - str
   module: unify_llm_tool.tools.optimize_llm_tool
-  name: Unify Tool
+  name: Unify Optimize
   description: Tool for routing and LLM optimization
   type: python
