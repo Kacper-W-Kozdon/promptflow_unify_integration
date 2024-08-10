@@ -1,4 +1,4 @@
-unify_llm_tool.tools.evaluate_llm_tool:
+unify_llm_tool.tools.evaluate_llm_tool.benchmark_models:
   function: benchmark_models
   inputs:
     models:
