@@ -1,1 +1,1 @@
-include unify_integration/unify_llm_tool/yamls/*.yaml
+include unify_llm_tool/yamls/*.yaml
