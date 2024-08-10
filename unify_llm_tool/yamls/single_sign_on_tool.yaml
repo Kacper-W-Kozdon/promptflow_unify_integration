@@ -1,4 +1,4 @@
-unify_integration.tools.unify_llm_tool.single_sign_on_tool:
+unify_integration.unify_llm_tool.tools.single_sign_on_tool:
   name: Unify Tool
   type: python
   inputs:
