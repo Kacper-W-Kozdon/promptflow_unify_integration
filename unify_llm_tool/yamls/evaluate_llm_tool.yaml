@@ -9,5 +9,5 @@ unify_integration.tools.unify_llm_tool.evaluate_llm_tool:
       type:
         - list
   description: Tool for benchmarking
-  module: unify_integration.unify_llm_tool.tools.evaluate_llm_tool
+  module: unify_llm_tool.tools.evaluate_llm_tool
   function: benchmark_models

@@ -9,5 +9,5 @@ unify_integration.tools.unify_llm_tool.single_sign_on_tool:
       type:
         - dict
   description: Tool for single sign on to multiple endpoints
-  module: unify_integration.unify_llm_tool.tools.single_sign_on_tool
+  module: unify_llm_tool.tools.single_sign_on_tool
   function: single_sign_on
