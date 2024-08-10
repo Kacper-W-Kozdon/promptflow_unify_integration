@@ -8,6 +8,6 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       type:
         - dict
   module: unify_llm_tool.tools.single_sign_on_tool
-  name: Unify Tool
+  name: Unify SSO
   description: Tool for single sign on to multiple endpoints
   type: python
