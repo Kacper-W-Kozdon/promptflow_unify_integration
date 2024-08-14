@@ -6,10 +6,10 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
         - Unify
     config:
       type:
-        - dict
+        - Optional[dict]
     input_text:
       type:
-        - str
+        - Union[str, Sequence]
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
   description: Tool for routing and LLM optimization
