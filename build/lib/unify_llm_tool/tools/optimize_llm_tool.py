@@ -1,19 +1,20 @@
 from typing import Optional, Sequence, Union
-
 from unify import Unify
-
 from promptflow.core import tool
 
 
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 @tool
-def optimize_llm(connection: Unify, config: Optional[dict], input_text: Union[str, Sequence]) -> Union[dict, str]:
+def optimize_llm(connection: Unify, config: Optional[dict], input_text: Union[str, Sequence] = " ") -> Union[dict, str]:
     """
     Selects the optimal model for a step of a flow.
 
-    :param connection: Unify client to use
+    :param connection: Unify client to use for connection
+    :type connection: Unify
     :param config: requirements for the optimization
+    :type config: Optional[dict]
     :param input_text:
+    :type input_text: Union[str, Sequence]
     """
     assert isinstance(connection.get_credit_balance(), (str, float, int))
     if not isinstance(config, dict):
