@@ -1,14 +1,14 @@
 import os
 import unittest
-from typing import Union
 from collections import OrderedDict
+from typing import Union
 
 import pytest
 from dotenv import load_dotenv
 from unify import Unify
-
 from unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
 from unify_llm_tool.tools.optimize_llm_tool import optimize_llm
+
 from promptflow.connections import CustomConnection
 
 load_dotenv()
@@ -23,8 +23,9 @@ def my_custom_connection() -> Union[Unify, CustomConnection]:
 
 class TestTool:
     """
-    The test class for the Unify itnegration
+    The test class for the Unify integration
     """
+
     def test_optimize_llm(self, custom_connection: Unify) -> None:
         """
         The method to test optimize_llm_tool
@@ -37,8 +38,11 @@ class TestTool:
         The method to test the benchmar_llm_tool
         """
         models: list = []
-        prompt_set: list = []
-        result: Union[OrderedDict, object] = benchmark_models(models=models, prompt_set=prompt_set)
+        providers: list = []
+        result: Union[OrderedDict, object] = benchmark_models(
+            models=models,
+            providers=providers,
+        )
         assert isinstance(result, dict)
 
 

@@ -10,7 +10,6 @@ from unify.utils import _validate_api_key as validate_api_key
 
 from promptflow.core import tool
 
-
 load_dotenv()
 _api_key = os.getenv("UNIFY_KEY")
 _base_url = "https://api.unify.ai/v0"
@@ -44,9 +43,11 @@ def benchmark_models(
     if not router:
         assert isinstance(benchmark_list, OrderedDict)
 
-        url: str = f"{_base_url}/benchmarks"     
+        url: str = f"{_base_url}/benchmarks"
         try:
-            endpoints_list: List[str] = unify.utils.list_endpoints(model=models, provider=providers, api_key=api_key)  #noqa: E1123, E501
+            endpoints_list: List[str] = unify.utils.list_endpoints(
+                model=models, provider=providers, api_key=api_key
+            )  # noqa: E1123, E501
         except TypeError:
             endpoints_list = unify.utils.list_endpoints(model=models)
 
@@ -59,7 +60,7 @@ def benchmark_models(
             benchmark = res_to_list(requests.get(url, headers=headers, params=params, timeout=10))
             benchmark_list[endpoint] = benchmark
         return benchmark_list
-    
+
     url = f"{_base_url}/router/deploy/list"
     benchmark_list = requests.get(url, headers=headers, params=params, timeout=10)
     return benchmark_list
