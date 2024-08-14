@@ -39,7 +39,10 @@ class TestTool:
         """
         models: list = []
         providers: list = []
-        result: Union[OrderedDict, object] = benchmark_models(models=models, providers=providers)
+        result: Union[OrderedDict, object] = benchmark_models(
+            models=models,
+            providers=providers,
+        )
         assert isinstance(result, dict)
 
 
