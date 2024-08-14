@@ -4,15 +4,18 @@ unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
     models:
       type:
         - Optional[list]
+      description: Optional list of models to filter the endpoints
     providers:
       type:
         - Optional[list]
+      description: Optional list of providerss to filter the endpoints
     api_key:
       type:
         - Optional[str]
     router:
       type:
         - bool
+      description: Switches between trained routers (True) and untrained providers (False)
   module: unify_llm_tool.tools.benchmark_llm_tool
   name: Unify Benchmark
   description: Tool for benchmarking
