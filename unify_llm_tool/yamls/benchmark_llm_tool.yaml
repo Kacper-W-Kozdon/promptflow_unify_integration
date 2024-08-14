@@ -16,4 +16,4 @@ unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
   module: unify_llm_tool.tools.benchmark_llm_tool
   name: Unify Benchmark
   description: Tool for benchmarking
-  type: python 
+  type: python
