@@ -4,12 +4,15 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
     connection:
       type:
         - Unify
+      description: The Unify client provided through the UnifyConnection
     config:
       type:
         - Optional[dict]
+      description: A dict with parameters to filter the endpoints; config.keys() are ["quality", "cost", "time-to-first-token", "inter-token-latency"]
     input_text:
       type:
         - Union[str, Sequence]
+      description: Optional string to be used to retrieve the metadata from the queried models
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
   description: Tool for routing and LLM optimization
