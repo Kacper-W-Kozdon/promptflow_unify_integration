@@ -66,8 +66,8 @@ class UnifyConnection(CustomConnection):
     ):
 
         kwargs = {**kwargs, **self._Connection_kwargs}
-        self.convert_to_strong_type()
         super().__init__(secrets=secrets, configs=configs, **kwargs)
+        self.convert_to_strong_type()
 
     def convert_to_strong_type(self) -> Unify:
         """
