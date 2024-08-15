@@ -8,6 +8,10 @@ from promptflow.contracts.types import Secret
 from promptflow._constants import ConnectionType
 from promptflow.connections import CustomConnection
 from promptflow.core import tool
+from promptflow.client import PFClient
+
+# Get a pf client to manage connections
+pf = PFClient()
 
 
 
@@ -66,8 +70,8 @@ class UnifyConnection(CustomConnection):
     ):
 
         kwargs = {**kwargs, **self._Connection_kwargs}
-        super().__init__(secrets=secrets, configs=configs, **kwargs)
         self.convert_to_strong_type()
+        super().__init__(secrets=secrets, configs=configs, **kwargs)
 
     def convert_to_strong_type(self) -> Unify:
         """
@@ -146,8 +150,12 @@ def single_sign_on(
     """
     if new_endpoint := endpoint or router:
         connection.set_endpoint(new_endpoint)
+        # Create the connection, note that all secret values will be scrubbed in the returned result
+        pf.connections.create_or_update(connection)
         return connection
     if model and provider:
         connection.set_model(model)
         connection.set_provider(provider)
+        # Create the connection, note that all secret values will be scrubbed in the returned result
+        pf.connections.create_or_update(connection)
         return connection
