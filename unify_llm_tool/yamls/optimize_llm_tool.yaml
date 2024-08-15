@@ -3,8 +3,8 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   inputs:
     inputs:
     connection:
-      type:
-        - str
+      custom_type: UnifyConnection
+      type: CustomConnection
     config:
       type:
         - dict
@@ -17,3 +17,16 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   name: Unify Optimize
   description: Tool for routing and LLM optimization
   type: python
+
+
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/CustomStrongTypeConnection.schema.json
+name: "unify_connection"
+type: custom
+custom_type: UnifyConnection
+module: unify_llm_tool.tools.single_sign_on_tool
+package: unify_llm_tool
+package_version: 0.0.13
+configs:
+  api_base: "https://api.unify.ai/v0"  # String type. The api base.
+secrets:      # must-have
+  api_key: "<user-input>"  # Secret type. The api key get from "https://xxx.com".
