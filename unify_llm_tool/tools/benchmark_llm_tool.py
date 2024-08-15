@@ -50,7 +50,7 @@ def benchmark_models(
             endpoints_list: List[str] = unify.utils.list_endpoints(
                 model=models, provider=providers, api_key=api_key
             )  # noqa: E1123, E501
-        except TypeError:
+        except (TypeError, ValueError):
             endpoints_list = unify.utils.list_endpoints(model=models)
 
         for endpoint in endpoints_list:

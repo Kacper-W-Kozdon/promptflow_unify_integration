@@ -1,13 +1,14 @@
 from typing import Optional, Sequence, Union
 
 from unify import Unify
+from single_sign_on_tool import UnifyConnection
 
 from promptflow.core import tool
 
 
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 @tool
-def optimize_llm(connection: Unify, config: Optional[dict], input_text: Union[str, Sequence] = " ") -> Union[dict, str]:
+def optimize_llm(connection: Union[Unify, UnifyConnection], config: Optional[dict], input_text: Union[str, Sequence] = " ") -> Union[dict, str]:
     """
     Selects the optimal model for a step of a flow.
 
@@ -45,12 +46,12 @@ def optimize_llm(connection: Unify, config: Optional[dict], input_text: Union[st
         router = "".join(router_listed)
     if isinstance(model, list):
         models: str = ",".join(model)
-        router_listed: list = router.split("@")
+        router_listed = router.split("@")
         router_listed.insert(1, f"@model:{models}|")
         router = "".join(router_listed)
         connection.set_endpoint(router)
         response: str = connection.generate(input_text)
-        endpoint: str = connection.endpoint
+        endpoint = connection.endpoint
         return {"optimal_endpoint": endpoint, "response": response}
 
     if endpoint:
@@ -59,6 +60,6 @@ def optimize_llm(connection: Unify, config: Optional[dict], input_text: Union[st
         connection.set_model(model)
         connection.set_provider(provider)
 
-    response: str = connection.generate(input_text)
-    endpoint: str = connection.endpoint
+    response = connection.generate(input_text)
+    endpoint = connection.endpoint
     return {"optimal_endpoint": endpoint, "response": response}
