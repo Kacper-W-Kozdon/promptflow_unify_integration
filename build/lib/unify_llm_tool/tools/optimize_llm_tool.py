@@ -1,7 +1,7 @@
 from typing import Optional, Sequence, Union
 
 from unify import Unify
-from single_sign_on_tool import UnifyConnection
+from .single_sign_on_tool import UnifyConnection
 
 from promptflow.core import tool
 

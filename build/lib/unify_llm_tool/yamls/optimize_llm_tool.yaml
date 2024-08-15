@@ -3,7 +3,8 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   inputs:
     inputs:
     connection:
-      type: str
+      custom_type: UnifyConnection
+      type: CustomConnection
     config:
       type:
         - dict
@@ -16,3 +17,4 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   name: Unify Optimize
   description: Tool for routing and LLM optimization
   type: python
+
