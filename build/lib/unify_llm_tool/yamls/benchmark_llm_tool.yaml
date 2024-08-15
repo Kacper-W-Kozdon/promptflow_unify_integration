@@ -1,0 +1,23 @@
+unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
+  function: benchmark_models
+  inputs:
+    models:
+      type:
+        - list
+      optional: true
+    providers:
+      type:
+        - list
+      optional: true
+    api_key:
+      type:
+        - str
+      optional: true
+    router:
+      type:
+        - bool
+      default: false
+  module: unify_llm_tool.tools.benchmark_llm_tool
+  name: Unify Benchmark
+  description: Tool for benchmarking
+  type: python
