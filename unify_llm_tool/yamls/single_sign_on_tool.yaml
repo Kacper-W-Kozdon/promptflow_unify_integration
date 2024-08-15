@@ -5,6 +5,8 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       type:
         - Dict[str, str]
       description: Optional dictionary to change the configs of the CustomConnection base class
+      optional: true
+      default: null
     secrets:
       type:
         - Dict[str, str]
@@ -12,4 +14,21 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   module: unify_llm_tool.tools.single_sign_on_tool
   name: Unify SSO
   description: Tool for single sign on to multiple endpoints
+  type: python
+
+
+my_tool_package.tools.tool_with_custom_strong_type_connection.my_tool:
+  description: This is my tool with custom strong type connection.
+  function: my_tool
+  inputs:
+    connection:
+      custom_type:
+      - UnifyConnection
+      type:
+      - CustomConnection
+    input_text:
+      type:
+      - string
+  module: unify_llm_tool.tools.unify_connection
+  name: Tool With Custom Strong Type Connection
   type: python

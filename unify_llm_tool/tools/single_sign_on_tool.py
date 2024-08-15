@@ -8,6 +8,7 @@ from promptflow.connections import CustomConnection
 from promptflow.core import tool
 
 
+
 class UnifyClient(Unify):
     """Unify client.
 
@@ -63,7 +64,7 @@ class UnifyConnection(CustomConnection):
         kwargs = {**kwargs, **self._Connection_kwargs}
         super().__init__(secrets=secrets, configs=configs, **kwargs)
 
-    def connect(self) -> Unify:
+    def convert_to_strong_type(self) -> Unify:
         """
         Creates an instance of Unify client.
 
