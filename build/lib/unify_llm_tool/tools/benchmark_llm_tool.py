@@ -22,7 +22,9 @@ def benchmark_models(
     models: Optional[list], providers: Optional[list], api_key: Optional[str] = _api_key, router: bool = False
 ) -> Union[OrderedDict, object]:
     """
-    Evaluates the endpoint models on a prompt set for a step of a flow.
+    Provides the list of available endpoints or routers.
+    If either models or providers are passed to the tool,
+    it lists available endpoints for these models or providers.
 
     :param models: models' endpoints to use
     :type models: Optional[list]

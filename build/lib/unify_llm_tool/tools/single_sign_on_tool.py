@@ -42,6 +42,8 @@ class UnifyConnection(CustomConnection):
     :type secrets: Dict[str, str]
     :param name: Connection name
     :type name: str
+    :param kwargs: Additional keyword arguments
+    :type kwargs: dict
     """
 
     TYPE = ConnectionType.CUSTOM.value
@@ -80,8 +82,6 @@ def single_sign_on(configs: Optional[Dict[str, str]], secrets: Dict[str, str]) -
     :type configs: Dict[str, str]
     :param secrets: The secrets kv pairs.
     :type secrets: Dict[str, str]
-    :param name: Connection name
-    :type name: str
     """
     connection = UnifyConnection(secrets=secrets, configs=configs)
     connection_instance = connection.connect()
