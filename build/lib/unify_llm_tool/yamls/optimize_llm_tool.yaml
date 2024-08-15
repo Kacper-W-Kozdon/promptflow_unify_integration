@@ -3,8 +3,7 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   inputs:
     inputs:
     connection:
-      type:
-        - str
+      type: str
     config:
       type:
         - dict
