@@ -3,16 +3,15 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   inputs:
     inputs:
     connection:
-      custom_type:
-      - UnifyConnection
       type:
-      - CustomConnection
+        - str
     config:
       type:
         - dict
       optional: true
     input_text:
-      type: str
+      type: 
+        - str
       optional: true
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
