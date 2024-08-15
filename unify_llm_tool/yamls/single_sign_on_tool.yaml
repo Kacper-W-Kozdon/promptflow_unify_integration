@@ -33,7 +33,7 @@ name: "unify_connection"
 type: CustomConnection
 custom_type: UnifyConnection
 module: unify_llm_tool.tools.single_sign_on_tool
-package: unify_llm_tool
+package: unify_integration
 package_version: 0.0.13
 configs:
   api_base: "https://api.unify.ai/v0"  # String type. The api base.
