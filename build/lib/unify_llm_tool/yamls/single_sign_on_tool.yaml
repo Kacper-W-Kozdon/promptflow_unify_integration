@@ -38,4 +38,4 @@ package_version: 0.0.13
 configs:
   api_base: "https://api.unify.ai/v0"  # String type. The api base.
 secrets:      # must-have
-  api_key: "<user-input>"  # Secret type. The api key get from "https://xxx.com".
+  api_key: <user-input>  # Secret type. The api key get from "https://xxx.com".
