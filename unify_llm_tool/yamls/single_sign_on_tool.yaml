@@ -2,20 +2,40 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   function: single_sign_on
   inputs:
     connection:
-      type: str
+      custom_type:
+        - UnifyConnection
+      type:
+        - CustomConnection
     endpoint:
-      type: str
+      type:
+        - str
       optional: true
     model:
-      type: str
+      type:
+        - str
       optional: true
     provider:
-      type: str
+      type:
+        - str
       optional: true
     router:
-      type: str
+      type:
+        - str
       optional: true
   module: unify_llm_tool.tools.single_sign_on_tool
   name: Unify SSO
   description: Tool for single sign on to multiple endpoints
   type: python 
+
+
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/CustomStrongTypeConnection.schema.json
+name: "unify_connection"
+type: CustomConnection
+custom_type: UnifyConnection
+module: unify_llm_tool.tools.single_sign_on_tool
+package: unify_integration
+package_version: 0.0.13
+configs:
+  api_base: "https://api.unify.ai/v0"  # String type. The api base.
+secrets:      # must-have
+  api_key: "<user-input>"  # Secret type. The api key get from "https://xxx.com".
