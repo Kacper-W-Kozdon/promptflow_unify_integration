@@ -3,7 +3,7 @@ unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
   inputs:
     models:
       type:
-        - list
+        - str
       optional: true
     providers:
       type:
