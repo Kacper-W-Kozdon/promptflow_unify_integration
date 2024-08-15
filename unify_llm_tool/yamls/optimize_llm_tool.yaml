@@ -12,8 +12,6 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
         - dict
       optional: true
     input_text:
-      custom_type:
-        - Union[str, Sequence]
       type: str
       optional: true
   module: unify_llm_tool.tools.optimize_llm_tool
