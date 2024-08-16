@@ -39,6 +39,7 @@ unify.clients.Unify = UnifyClient
 
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 
+unify_connection_name: str = "unify_connection"
 
 class UnifyConnection(CustomConnection):
     """Unify connection.
@@ -56,22 +57,38 @@ class UnifyConnection(CustomConnection):
     api_base: str = "https://api.unify.ai/v0"
 
     TYPE = ConnectionType.CUSTOM.value
-    _Connection_kwargs: dict = {
-        "name": "UnifyConnection",
+    _Connection_configs: Dict[str, str] = {
+        "name": unify_connection_name,
         "module": "unify.clients",
-        "type": "Custom",
+        "type": "CustomConnection",
+        "custom_type": "UnifyConnection",
+        "package": "unify_integration",
+    }
+
+    _strong_configs: Dict[str, str] = {
+        "api_base": "https://api.unify.ai/v0",
+        "endpoint": "<user-input>",
+        "model": "<user-input>",
+        "provider": "<user-input>",
+    }
+
+    _strong_secrets: Dict[str, str] = {
+        "unify_api_key": "<user-input>",
     }
 
     def __init__(
         self,
-        secrets: Dict[str, str],
-        configs: Optional[Dict[str, str]],
+        secrets: Optional[Dict[str, str]] = None,
+        configs: Optional[Dict[str, str]] = None,
         **kwargs: dict,
     ):
-
-        kwargs = {**kwargs, **self._Connection_kwargs}
-        self.convert_to_strong_type()
-        super().__init__(secrets=secrets, configs=configs, **kwargs)
+        if not secrets:
+            _configs = {**self._strong_configs, **self._Connection_configs}
+            super().__init__(secrets=self._strong_secrets, configs=_configs)
+            self.convert_to_strong_type()
+        else:
+            configs = {**self._Connection_configs, **configs}
+            super().__init__(secrets=secrets, configs=configs, **kwargs)
 
     def convert_to_strong_type(self) -> Unify:
         """
@@ -79,12 +96,20 @@ class UnifyConnection(CustomConnection):
 
         """
 
-        module = self._Connection_kwargs.get("module")
-        name = self._Connection_kwargs.get("name")
+        module = self._Connection_configs.get("module")
+        name = self._Connection_configs.get("name")
         return self._convert_to_custom_strong_type(module=module, to_class=name)
 
 
-def list_endpoints(model: Optional[str], provider: Optional[str], api_key: Optional[str]) -> List[str]:
+if unify_connection_name not in pf.connections.list():
+    strong_unify_connection = UnifyConnection()
+    pf.connections.create_or_update(strong_unify_connection)
+
+
+def list_endpoints(
+        model: Optional[str],
+        provider: Optional[str],
+        api_key: Optional[str]) -> List[str]:
     """
     Lists endpoints available through Unify.
 
@@ -153,7 +178,6 @@ def single_sign_on(
     new_endpoint = endpoint or router or f"{model}@{provider}"
 
     configs: Dict[str, str] = {
-        "api_base": "https://api.unify.ai/v0",
         "endpoint": new_endpoint,
     }
 
