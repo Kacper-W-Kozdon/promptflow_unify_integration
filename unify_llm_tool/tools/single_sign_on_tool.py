@@ -23,11 +23,11 @@ class UnifyClient(Unify):
     :param secrets: The secrets kv pairs.
     :type secrets: Dict[str, str]
     :param name: Connection name
-    :type nam
+    :type name: str
     """
 
     def __init__(self, configs: dict = None, secrets: dict = None, **kwargs: dict):
-        api_key = secrets.get("api_key") or kwargs.get("api_key") or configs.get("api_key")
+        api_key = secrets.get("unify_api_key") or kwargs.get("unify_api_key") or configs.get("unify_api_key")
         endpoint = secrets.get("endpoint") or kwargs.get("endpoint") or configs.get("endpoint")
         model = secrets.get("model") or kwargs.get("model") or configs.get("model")
         provider = secrets.get("provider") or kwargs.get("provider") or configs.get("provider")
@@ -52,7 +52,7 @@ class UnifyConnection(CustomConnection):
     :param kwargs: Additional keyword arguments
     :type kwargs: dict
     """
-    api_key: Secret
+    unify_api_key: Secret
     api_base: str = "https://api.unify.ai/v0"
 
     TYPE = ConnectionType.CUSTOM.value
@@ -133,11 +133,11 @@ def list_providers(model: Optional[str], api_key: Optional[str]) -> List[str]:
 
 @tool
 def single_sign_on(
-    connection: UnifyConnection,
     endpoint: Optional[str],
     model: Optional[str],
     provider: Optional[str],
     router: Optional[str],
+    unify_api_key: Secret,
 ) -> Unify:
     """Unify connection tool.
 
@@ -147,15 +147,18 @@ def single_sign_on(
     :type model: str
     :param provider: The provider from the list of providers available for the model.
     :type provider: str
+    :param unify_api_key: The Unify API key
     """
-    if new_endpoint := endpoint or router:
-        connection.set_endpoint(new_endpoint)
-        # Create the connection, note that all secret values will be scrubbed in the returned result
-        pf.connections.create_or_update(connection)
-        return connection
-    if model and provider:
-        connection.set_model(model)
-        connection.set_provider(provider)
-        # Create the connection, note that all secret values will be scrubbed in the returned result
-        pf.connections.create_or_update(connection)
-        return connection
+
+    new_endpoint = endpoint or router or f"{model}@{provider}"
+
+    configs: Dict[str, str] = {
+        "api_base": "https://api.unify.ai/v0",
+        "endpoint": new_endpoint,
+    }
+
+    # Create the connection, note that all secret values will be scrubbed in the returned result
+    connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
+    pf.connections.create_or_update(connection)
+
+    return connection

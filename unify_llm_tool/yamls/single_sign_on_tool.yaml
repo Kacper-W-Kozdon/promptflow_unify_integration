@@ -37,5 +37,8 @@ package: unify_integration
 package_version: 0.0.13
 configs:
   api_base: "https://api.unify.ai/v0"  # String type. The api base.
+  endpoint: <user-input>
+  model: <user-input>
+  provider: <user-input>
 secrets:      # must-have
-  api_key: <user-input>  # Secret type. The api key get from "https://xxx.com".
+  unify_api_key: <user-input>  # Secret type. The api key get from "https://xxx.com".
