@@ -1,18 +1,17 @@
-from typing import Dict, Optional, Any, List
+from typing import Dict, List, Optional
 
+import unify
 import unify.clients
 from unify import Unify
-import unify
 
-from promptflow.contracts.types import Secret
 from promptflow._constants import ConnectionType
-from promptflow.connections import CustomConnection
-from promptflow.core import tool
 from promptflow.client import PFClient
+from promptflow.connections import CustomConnection
+from promptflow.contracts.types import Secret
+from promptflow.core import tool
 
 # Get a pf client to manage connections
 pf = PFClient()
-
 
 
 class UnifyClient(Unify):
@@ -41,6 +40,7 @@ unify.clients.Unify = UnifyClient
 
 unify_connection_name: str = "unify_connection"
 
+
 class UnifyConnection(CustomConnection):
     """Unify connection.
 
@@ -53,6 +53,7 @@ class UnifyConnection(CustomConnection):
     :param kwargs: Additional keyword arguments
     :type kwargs: dict
     """
+
     api_key: Secret
     api_base: str = "https://api.unify.ai/v0"
 
@@ -106,10 +107,7 @@ if unify_connection_name not in pf.connections.list():
     pf.connections.create_or_update(strong_unify_connection)
 
 
-def list_endpoints(
-        model: Optional[str],
-        provider: Optional[str],
-        api_key: Optional[str]) -> List[str]:
+def list_endpoints(model: Optional[str], provider: Optional[str], api_key: Optional[str]) -> List[str]:
     """
     Lists endpoints available through Unify.
 
