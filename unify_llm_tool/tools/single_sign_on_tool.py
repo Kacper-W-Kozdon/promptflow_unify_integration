@@ -27,7 +27,7 @@ class UnifyClient(Unify):
     """
 
     def __init__(self, configs: dict = None, secrets: dict = None, **kwargs: dict):
-        api_key = secrets.get("unify_api_key") or kwargs.get("unify_api_key") or configs.get("unify_api_key")
+        api_key = secrets.get("api_key") or kwargs.get("api_key") or configs.get("api_key")
         endpoint = secrets.get("endpoint") or kwargs.get("endpoint") or configs.get("endpoint")
         model = secrets.get("model") or kwargs.get("model") or configs.get("model")
         provider = secrets.get("provider") or kwargs.get("provider") or configs.get("provider")
@@ -52,7 +52,7 @@ class UnifyConnection(CustomConnection):
     :param kwargs: Additional keyword arguments
     :type kwargs: dict
     """
-    unify_api_key: Secret
+    api_key: Secret
     api_base: str = "https://api.unify.ai/v0"
 
     TYPE = ConnectionType.CUSTOM.value
@@ -158,7 +158,7 @@ def single_sign_on(
     }
 
     # Create the connection, note that all secret values will be scrubbed in the returned result
-    connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
+    connection = UnifyConnection(secrets={"api_key": unify_api_key}, configs=configs)
     pf.connections.create_or_update(connection)
 
     return connection
