@@ -1,0 +1,15 @@
+
+$schema: https://azuremlschemas.azureedge.net/promptflow/latest/CustomStrongTypeConnection.schema.json
+name: unify_connection
+type: CustomConnection
+custom_type: UnifyConnection
+module: unify_llm_tool.tools.single_sign_on_tool
+package: unify_integration
+package_version: 0.0.14
+configs:
+  api_base: "https://api.unify.ai/v0"  # String type. The api base.
+  endpoint: <user-input>
+  model: <user-input>
+  provider: <user-input>
+secrets:      # must-have
+  unify_api_key: <user-input>  # Secret type. The api key get from "https://xxx.com".
