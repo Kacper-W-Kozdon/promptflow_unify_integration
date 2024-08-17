@@ -1,14 +1,16 @@
 from typing import Optional, Sequence, Union
 
 from unify import Unify
-from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection
 
 from promptflow.core import tool
+from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection
 
 
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 @tool
-def optimize_llm(connection: Union[Unify, UnifyConnection], config: Optional[dict], input_text: Union[str, Sequence] = " ") -> Union[dict, str]:
+def optimize_llm(
+    connection: Union[Unify, UnifyConnection], config: Optional[dict], input_text: Union[str, Sequence] = " "
+) -> Union[dict, str]:
     """
     Selects the optimal model for a step of a flow.
 

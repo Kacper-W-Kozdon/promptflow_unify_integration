@@ -1,9 +1,9 @@
 
 $schema: https://azuremlschemas.azureedge.net/promptflow/latest/CustomStrongTypeConnection.schema.json
 name: unify_connection
-type: CustomConnection
+type: custom
 custom_type: UnifyConnection
-module: unify_llm_tool.tools.single_sign_on_tool
+module: unify_llm_tool.connections.unify_connection
 package: unify_integration
 package_version: 0.0.14
 configs:
