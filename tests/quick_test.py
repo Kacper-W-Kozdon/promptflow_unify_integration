@@ -31,9 +31,11 @@ def test() -> None:
             try:
                 importlib.import_module(tool["module"])  # Import the module to ensure its validity
                 print(f"----{identifier}\n{tool}")
-            except:  # noqa: E722
+            except Exception as e:  # noqa: E722
                 print("An error occurred with:\n")
                 print(f"----{identifier}\n{tool}")
+                print(f"---Error---\n{e}")
+                break
 
 
 if __name__ == "__main__":

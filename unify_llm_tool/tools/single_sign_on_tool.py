@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 
 import unify
 import unify.clients
@@ -102,9 +102,15 @@ class UnifyConnection(CustomConnection):
         return self._convert_to_custom_strong_type(module=module, to_class=name)
 
 
-if unify_connection_name not in pf.connections.list():
-    strong_unify_connection = UnifyConnection()
-    pf.connections.create_or_update(strong_unify_connection)
+def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
+    """
+    Creates a strong type connection for Unify
+    """
+    strong_unify_connection: Union[UnifyConnection, None] = None
+    if unify_connection_name not in pf.connections.list():
+        strong_unify_connection = UnifyConnection()
+        pf.connections.create_or_update(strong_unify_connection)
+    return strong_unify_connection
 
 
 def list_endpoints(model: Optional[str], provider: Optional[str], api_key: Optional[str]) -> List[str]:
