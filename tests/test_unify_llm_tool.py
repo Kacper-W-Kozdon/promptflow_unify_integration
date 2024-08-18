@@ -11,9 +11,9 @@ from unify import Unify
 
 from promptflow.client import PFClient
 from promptflow.connections import CustomConnection
-from unify_integration.unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
-from unify_integration.unify_llm_tool.tools.optimize_llm_tool import optimize_llm
-from unify_integration.unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, create_strong_unify_connection
+from unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
+from unify_llm_tool.tools.optimize_llm_tool import optimize_llm
+from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, create_strong_unify_connection
 
 pf = PFClient()
 
@@ -23,8 +23,8 @@ unify_api_key = os.getenv("UNIFY_KEY")
 
 
 @pytest.fixture
-def my_custom_connection() -> Union[Unify, CustomConnection]:
-    custom_connection = Unify(api_key=unify_api_key)
+def my_custom_connection() -> Union[UnifyConnection, CustomConnection]:
+    custom_connection = UnifyConnection(secrets={"api_key": unify_api_key})
     return custom_connection
 
 
