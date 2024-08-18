@@ -2,11 +2,12 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   function: optimize_llm
   inputs:
     connection:
-      custom_type: 
+      custom_type:
         - UnifyConnection
         - Unify
-      type: 
+      type:
         - CustomConnection
+      default: unify_connection
     config:
       type:
         - dict
