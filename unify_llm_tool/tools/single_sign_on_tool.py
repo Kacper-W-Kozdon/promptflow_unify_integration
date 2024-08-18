@@ -90,7 +90,7 @@ class UnifyConnection(CustomConnection):
             self.convert_to_strong_type()
         else:
             if not configs:
-                configs = {}
+                configs = {"api_base": "https://api.unify.ai/v0"}
             configs = {**self._Connection_configs, **configs}
             super().__init__(secrets=secrets, configs=configs, **kwargs)
 
