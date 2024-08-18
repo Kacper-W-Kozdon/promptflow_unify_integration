@@ -83,7 +83,7 @@ class UnifyConnection(CustomConnection):
         configs: Optional[Dict[str, str]] = {},
         **kwargs: dict,
     ):
-        self.connection_instance: Union[None, Unify] = None
+        self.connection_instance: Union[None, Unify] = Unify()
         if not secrets:
             _configs = {**self._strong_configs, **self._Connection_configs}
             super().__init__(secrets=self._strong_secrets, configs=_configs)
