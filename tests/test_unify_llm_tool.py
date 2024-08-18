@@ -23,7 +23,7 @@ unify_api_key = os.getenv("UNIFY_KEY")
 
 
 @pytest.fixture
-def my_custom_connection() -> Union[UnifyConnection, CustomConnection]:
+def my_custom_connection() -> Union[Unify, UnifyConnection, CustomConnection]:
     custom_connection = UnifyConnection(secrets={"api_key": unify_api_key})
     return custom_connection
 
@@ -33,7 +33,7 @@ class TestTool:
     The test class for the Unify integration
     """
 
-    def test_optimize_llm(self, custom_connection: Unify) -> None:
+    def test_optimize_llm(self, custom_connection: UnifyConnection = my_custom_connection()) -> None:
         """
         The method to test optimize_llm_tool
         """
