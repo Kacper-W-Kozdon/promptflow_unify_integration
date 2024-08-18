@@ -11,10 +11,9 @@ from unify import Unify
 
 from promptflow.client import PFClient
 from promptflow.connections import CustomConnection
-
-from ..unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
-from ..unify_llm_tool.tools.optimize_llm_tool import optimize_llm
-from ..unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, create_strong_unify_connection
+from unify_integration.unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
+from unify_integration.unify_llm_tool.tools.optimize_llm_tool import optimize_llm
+from unify_integration.unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, create_strong_unify_connection
 
 pf = PFClient()
 
