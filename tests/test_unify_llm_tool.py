@@ -23,7 +23,7 @@ unify_api_key = os.getenv("UNIFY_KEY")
 
 
 @pytest.fixture
-def my_custom_connection() -> Union[Unify, UnifyConnection, CustomConnection]:
+def custom_connection() -> Union[Unify, UnifyConnection, CustomConnection]:
     custom_connection = UnifyConnection(secrets={"api_key": unify_api_key})
     return custom_connection
 
