@@ -79,8 +79,8 @@ class UnifyConnection(CustomConnection):
 
     def __init__(
         self,
-        secrets: Optional[Dict[str, str]] = {},
-        configs: Optional[Dict[str, str]] = {},
+        secrets: Optional[Dict[str, str]] = None,
+        configs: Optional[Dict[str, str]] = None,
         **kwargs: dict,
     ):
         self.connection_instance: Union[None, Unify] = Unify()
@@ -89,6 +89,8 @@ class UnifyConnection(CustomConnection):
             super().__init__(secrets=self._strong_secrets, configs=_configs)
             self.convert_to_strong_type()
         else:
+            if not configs:
+                configs = {}
             configs = {**self._Connection_configs, **configs}
             super().__init__(secrets=secrets, configs=configs, **kwargs)
 
