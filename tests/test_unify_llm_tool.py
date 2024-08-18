@@ -33,7 +33,7 @@ class TestTool:
     The test class for the Unify integration
     """
 
-    def test_optimize_llm(self, custom_connection: UnifyConnection = my_custom_connection()) -> None:
+    def test_optimize_llm(self, custom_connection: Union[UnifyConnection, Unify, CustomConnection]) -> None:
         """
         The method to test optimize_llm_tool
         """
