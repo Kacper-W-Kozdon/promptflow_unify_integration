@@ -9,9 +9,15 @@ import pytest
 from dotenv import load_dotenv
 from unify import Unify
 
+from promptflow.client import PFClient
 from promptflow.connections import CustomConnection
-from unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
-from unify_llm_tool.tools.optimize_llm_tool import optimize_llm
+
+from ..unify_llm_tool.tools.benchmark_llm_tool import benchmark_models
+from ..unify_llm_tool.tools.optimize_llm_tool import optimize_llm
+from ..unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, create_strong_unify_connection
+
+pf = PFClient()
+
 
 load_dotenv()
 unify_api_key = os.getenv("UNIFY_KEY")
@@ -47,7 +53,14 @@ class TestTool:
         )
         assert isinstance(result, dict)
 
-    def test_installation() -> None:
+    def test_unify_connection() -> None:  # noqa: E0211
+        """
+        Tests if the strong type connections is created.
+        """
+        assert create_strong_unify_connection() is not None
+        assert UnifyConnection._Connection_configs["name"] in pf.connections.list()  # noqa: W0212
+
+    def test_installation() -> None:  # noqa: E0211
         """List all package tools information using the `package-tools` entry point.
 
         This function iterates through all entry points registered under the group "package_tools."
