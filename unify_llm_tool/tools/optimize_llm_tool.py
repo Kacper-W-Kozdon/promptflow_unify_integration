@@ -21,7 +21,7 @@ def optimize_llm(
     :param input_text:
     :type input_text: Union[str, Sequence]
     """
-    assert isinstance(connection.get_credit_balance(), (str, float, int))
+    assert isinstance(connection.connection_instance.get_credit_balance(), (str, float, int))
     if not isinstance(config, dict):
         config = {}
     quality: str = config.get("quality", "1")
