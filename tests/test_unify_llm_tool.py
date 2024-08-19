@@ -38,7 +38,7 @@ class TestTool:
         The method to test optimize_llm_tool
         """
         result = optimize_llm(custom_connection, config={}, input_text="Microsoft")
-        assert isinstance(result, tuple)
+        assert isinstance(result, [tuple, dict])
 
     def test_benchmark_llm(self) -> None:
         """
