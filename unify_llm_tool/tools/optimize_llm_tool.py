@@ -21,7 +21,8 @@ def optimize_llm(
     :param input_text:
     :type input_text: Union[str, Sequence]
     """
-    assert isinstance(connection.connection_instance.get_credit_balance(), (str, float, int))
+    connection_instance = connection.connection_instance if isinstance(connection, UnifyConnection) else connection
+    assert isinstance(connection_instance.get_credit_balance(), (str, float, int))
     if not isinstance(config, dict):
         config = {}
     quality: str = config.get("quality", "1")
@@ -51,17 +52,17 @@ def optimize_llm(
         router_listed = router.split("@")
         router_listed.insert(1, f"@model:{models}|")
         router = "".join(router_listed)
-        connection.set_endpoint(router)
-        response: str = connection.generate(input_text)
-        endpoint = connection.endpoint
+        connection_instance.set_endpoint(router)
+        response: str = connection_instance.generate(input_text)
+        endpoint = connection_instance.endpoint
         return {"optimal_endpoint": endpoint, "response": response}
 
     if endpoint:
-        connection.set_endpoint(endpoint)
+        connection_instance.set_endpoint(endpoint)
     if not endpoint and all([model, provider]):
-        connection.set_model(model)
-        connection.set_provider(provider)
+        connection_instance.set_model(model)
+        connection_instance.set_provider(provider)
 
-    response = connection.generate(input_text)
-    endpoint = connection.endpoint
+    response = connection_instance.generate(input_text)
+    endpoint = connection_instance.endpoint
     return {"optimal_endpoint": endpoint, "response": response}
