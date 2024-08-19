@@ -1,7 +1,9 @@
+import os
 from typing import Dict, List, Optional, Union
 
 import unify
 import unify.clients
+from dotenv import load_dotenv
 from unify import Unify
 
 from promptflow._constants import ConnectionType
@@ -26,7 +28,14 @@ class UnifyClient(Unify):
     """
 
     def __init__(self, configs: dict = None, secrets: dict = None, **kwargs: dict):
-        api_key = secrets.get("api_key") or kwargs.get("api_key") or configs.get("api_key")
+        load_dotenv()
+        api_key = (
+            secrets.get("api_key")
+            or kwargs.get("api_key")
+            or configs.get("api_key")
+            or os.getenv("UNIFY_API_KEY")
+            or os.getenv("UNIFY_KEY")
+        )
         endpoint = secrets.get("endpoint") or kwargs.get("endpoint") or configs.get("endpoint")
         model = secrets.get("model") or kwargs.get("model") or configs.get("model")
         provider = secrets.get("provider") or kwargs.get("provider") or configs.get("provider")
@@ -57,6 +66,8 @@ class UnifyConnection(CustomConnection):
     api_key: Secret
     api_base: str = "https://api.unify.ai/v0"
 
+    _default_endpoint: str = "gpt-4o@openai"
+
     TYPE = ConnectionType.CUSTOM.value
     _Connection_configs: Dict[str, str] = {
         "name": unify_connection_name,
@@ -83,14 +94,14 @@ class UnifyConnection(CustomConnection):
         configs: Optional[Dict[str, str]] = None,
         **kwargs: dict,
     ):
-        self.connection_instance: Union[None, Unify] = Unify()
+        self.connection_instance: Union[None, Unify] = Unify(endpoint=self._default_endpoint)
         if not secrets:
             _configs = {**self._strong_configs, **self._Connection_configs}
             super().__init__(secrets=self._strong_secrets, configs=_configs)
             self.convert_to_strong_type()
         else:
             if not configs:
-                configs = {"api_base": "https://api.unify.ai/v0"}
+                configs = {"api_base": "https://api.unify.ai/v0", "endpoint": self._default_endpoint}
             configs = {**self._Connection_configs, **configs}
             super().__init__(secrets=secrets, configs=configs, **kwargs)
 
