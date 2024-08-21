@@ -47,12 +47,12 @@ def benchmark_models(
 
         url: str = f"{_base_url}/benchmarks"
         try:
-            endpoints_list: List[str] = unify.utils.list_endpoints(
+            endpoints_list: List[str] = unify.list_endpoints(
                 model=models, provider=providers, api_key=api_key
             )  # noqa: E1123, E501
         except (TypeError, ValueError):
-            endpoints_list = unify.utils.list_endpoints(model=models)
-
+            endpoints_list = unify.list_endpoints(model=models)
+        print(f"---ENDPOINTS:---\n{endpoints_list}")
         for endpoint in endpoints_list:
             model, provider = tuple(endpoint.split("@"))
             params: dict = {

@@ -44,8 +44,8 @@ class TestTool:
         """
         The method to test the benchmar_llm_tool
         """
-        models: list = []
-        providers: list = []
+        models: Union[list, None] = "gpt-4o"
+        providers: Union[list, None] = None
         result: Union[OrderedDict, object] = benchmark_models(
             models=models,
             providers=providers,
