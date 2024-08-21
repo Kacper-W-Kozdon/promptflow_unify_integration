@@ -33,7 +33,7 @@ class TestTool:
     The test class for the Unify integration
     """
 
-    def test_optimize_llm(self, custom_connection: Union[UnifyConnection, Unify, CustomConnection]) -> None:
+    def test_optimize_llm(self, custom_connection) -> None:
         """
         The method to test optimize_llm_tool
         """
@@ -52,14 +52,17 @@ class TestTool:
         )
         assert isinstance(result, dict)
 
-    def test_unify_connection() -> None:  # noqa: E0211
+    def test_unify_connection(custom_connection) -> None:  # noqa: E0211
         """
         Tests if the strong type connections is created.
         """
         assert create_strong_unify_connection() is not None
-        assert UnifyConnection._Connection_configs["name"] in pf.connections.list()  # noqa: W0212
+        print(f"---CONNECTION NAME---\n{UnifyConnection._Connection_configs['name']}")
+        connections: list = [connection.name for connection in pf.connections.list()]
+        print(f"---CONNECTIONS---\n{connections}")
+        assert UnifyConnection._Connection_configs["name"] in connections  # noqa: W0212
 
-    def test_installation() -> None:  # noqa: E0211
+    def test_installation(custom_connection) -> None:  # noqa: E0211
         """List all package tools information using the `package-tools` entry point.
 
         This function iterates through all entry points registered under the group "package_tools."
