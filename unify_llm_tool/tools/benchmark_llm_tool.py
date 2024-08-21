@@ -1,5 +1,6 @@
 import os
 from collections import OrderedDict
+from importlib.metadata import version
 from typing import List, Optional, Union
 
 import requests
@@ -35,6 +36,7 @@ def benchmark_models(
     :param router: if True, fetches the list of deployed routers with metadata; default: False
     :type router: bool
     """
+
     benchmark_list: Union[OrderedDict, object] = OrderedDict()
     headers = {
         "accept": "application/json",
@@ -47,12 +49,18 @@ def benchmark_models(
 
         url: str = f"{_base_url}/benchmarks"
         try:
+            if version("unifyai") <= "0.8.5":
+                raise NotImplementedError
             endpoints_list: List[str] = unify.list_endpoints(
                 model=models, provider=providers, api_key=api_key
             )  # noqa: E1123, E501
-        except (TypeError, ValueError):
-            endpoints_list = unify.list_endpoints(model=models)
-        print(f"---ENDPOINTS:---\n{endpoints_list}")
+        except (TypeError, ValueError, NotImplementedError):
+            url = f"{_base_url}/endpoints"
+            endpoints_params: dict = {
+                "model": model,
+                "provider": provider,
+            }
+            endpoints_list = requests.get(url, headers=headers, params=endpoints_params, timeout=10)
         for endpoint in endpoints_list:
             model, provider = tuple(endpoint.split("@"))
             params: dict = {
