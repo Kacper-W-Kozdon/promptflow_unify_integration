@@ -54,7 +54,7 @@ def benchmark_models(
             endpoints_list = unify.utils.list_endpoints(model=models)
 
         for endpoint in endpoints_list:
-            model, provider = endpoint.split("@")
+            model, provider = tuple(endpoint.split("@"))
             params: dict = {
                 "model": model,
                 "provider": provider,
