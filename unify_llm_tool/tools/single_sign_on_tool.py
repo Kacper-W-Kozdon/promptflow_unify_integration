@@ -1,7 +1,9 @@
+import os
 from typing import Dict, List, Optional, Union
 
 import unify
 import unify.clients
+from dotenv import load_dotenv
 from unify import Unify
 
 from promptflow._constants import ConnectionType
@@ -12,6 +14,7 @@ from promptflow.core import tool
 
 # Get a pf client to manage connections
 pf = PFClient()
+load_dotenv()
 
 
 class UnifyClient(Unify):
@@ -26,10 +29,20 @@ class UnifyClient(Unify):
     """
 
     def __init__(self, configs: dict = None, secrets: dict = None, **kwargs: dict):
-        api_key = secrets.get("api_key") or kwargs.get("api_key") or configs.get("api_key")
-        endpoint = secrets.get("endpoint") or kwargs.get("endpoint") or configs.get("endpoint")
-        model = secrets.get("model") or kwargs.get("model") or configs.get("model")
-        provider = secrets.get("provider") or kwargs.get("provider") or configs.get("provider")
+        load_dotenv()
+        api_key = (
+            secrets.get("api_key")
+            or kwargs.get("api_key")
+            or configs.get("api_key")
+            or os.getenv("UNIFY_API_KEY")
+            or os.getenv("UNIFY_KEY")
+        )
+        endpoint: Union[str, None] = secrets.get("endpoint") or kwargs.get("endpoint") or configs.get("endpoint")
+        model: Union[str, None] = None
+        provider: Union[str, None] = None
+        if not endpoint:
+            model = secrets.get("model") or kwargs.get("model") or configs.get("model")
+            provider = secrets.get("provider") or kwargs.get("provider") or configs.get("provider")
         super().__init__(endpoint=endpoint, model=model, provider=provider, api_key=api_key)
 
 
@@ -57,10 +70,16 @@ class UnifyConnection(CustomConnection):
     api_key: Secret
     api_base: str = "https://api.unify.ai/v0"
 
+    name: str = "unify_connection"
+    class_name = "UnifyConnection"
     TYPE = ConnectionType.CUSTOM.value
+
+    _default_endpoint: str = "gpt-4o@openai"
+
     _Connection_configs: Dict[str, str] = {
-        "name": unify_connection_name,
+        "name": "unify_connection",
         "module": "unify.clients",
+        "class": "Unify",
         "type": "CustomConnection",
         "custom_type": "UnifyConnection",
         "package": "unify_integration",
@@ -68,9 +87,7 @@ class UnifyConnection(CustomConnection):
 
     _strong_configs: Dict[str, str] = {
         "api_base": "https://api.unify.ai/v0",
-        "endpoint": "<user-input>",
-        "model": "<user-input>",
-        "provider": "<user-input>",
+        "endpoint": _default_endpoint,
     }
 
     _strong_secrets: Dict[str, str] = {
@@ -81,18 +98,24 @@ class UnifyConnection(CustomConnection):
         self,
         secrets: Optional[Dict[str, str]] = None,
         configs: Optional[Dict[str, str]] = None,
+        convert_to_strong_type: bool = True,
         **kwargs: dict,
     ):
-        self.connection_instance: Union[None, Unify] = Unify()
+        self.connection_instance: Union[None, Unify] = Unify(
+            endpoint=self._default_endpoint, api_key=secrets.get("unify_api_key")
+        )
+
         if not secrets:
             _configs = {**self._strong_configs, **self._Connection_configs}
-            super().__init__(secrets=self._strong_secrets, configs=_configs)
-            self.convert_to_strong_type()
+            super().__init__(name=self.name, secrets=self._strong_secrets, configs=_configs)
         else:
             if not configs:
-                configs = {"api_base": "https://api.unify.ai/v0"}
-            configs = {**self._Connection_configs, **configs}
-            super().__init__(secrets=secrets, configs=configs, **kwargs)
+                configs = {"api_base": "https://api.unify.ai/v0", "endpoint": self._default_endpoint}
+            _configs = {**self._Connection_configs, **configs}
+            super().__init__(name=self.name, secrets=secrets, configs=_configs, **kwargs)
+
+        if convert_to_strong_type:
+            self.convert_to_strong_type()
 
     def convert_to_strong_type(self) -> Unify:
         """
@@ -101,7 +124,7 @@ class UnifyConnection(CustomConnection):
         """
 
         module = self._Connection_configs.get("module")
-        name = self._Connection_configs.get("name")
+        name = self._Connection_configs.get("class")
         self.connection_instance = self._convert_to_custom_strong_type(module=module, to_class=name)
         return self.connection_instance
 
@@ -110,9 +133,12 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
     """
     Creates a strong type connection for Unify
     """
+
+    _api_key: str = os.getenv("UNIFY_API_KEY") or os.getenv("UNIFY_KEY") or "<user-input>"
     strong_unify_connection: Union[UnifyConnection, None] = None
     if unify_connection_name not in pf.connections.list():
-        strong_unify_connection = UnifyConnection()
+        secrets: Dict[str, str] = {"unify_api_key": _api_key}
+        strong_unify_connection = UnifyConnection(secrets=secrets)
         pf.connections.create_or_update(strong_unify_connection)
     return strong_unify_connection
 

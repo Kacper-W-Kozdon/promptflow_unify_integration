@@ -115,6 +115,7 @@
     "myconn"
   ],
   "ignoreWords": [
+    "unifyai",
     "openmpi",
     "ipynb",
     "xdist",
