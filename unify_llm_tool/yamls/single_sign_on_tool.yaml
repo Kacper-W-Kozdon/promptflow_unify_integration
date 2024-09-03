@@ -13,3 +13,4 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   name: Unify SSO
   description: Tool for single sign on to multiple endpoints
   type: python
+  icon: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAS1BMVEVHcEwAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCiJMrqTAAAAGXRSTlMAPjFUyAR65yreCkqh0h2Gl4C+cGC0qzVGwlRn4wAAAF1JREFUGNOtzzkSgCAQRFGWgZ5hEQUV739SE7SILTt8ya9W6rcFu67RTbDhqPCP9M7SDDfoASlp2ExMfkAhzlWEaRugseuD9gtxgCvwhm0+wxv1AkFapuwSrXFfT9yAMwLxXv2KqQAAAABJRU5ErkJggg== 
