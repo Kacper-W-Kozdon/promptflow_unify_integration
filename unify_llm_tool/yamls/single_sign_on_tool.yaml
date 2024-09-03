@@ -6,7 +6,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
         type:
         - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
-        func_kwargs:
+        func_args:
         - name: provider
           type:
           - string
@@ -29,7 +29,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
         type:
         - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
-        func_kwargs:
+        func_args:
         - name: model
           type:
           - string
@@ -52,7 +52,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
         - list
       dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_endpoints
-        func_kwargs:
+        func_args:
         - name: model  # argument name to be passed to the function
           type:
           - string
@@ -65,6 +65,13 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
           - int
           optional: true
           reference: ${inputs.provider}
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}
       # enum and dynamic list may need below setting.
       # allow user to enter input value manually, default false.
       allow_manual_entry: true
