@@ -1,21 +1,82 @@
 unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   function: single_sign_on
   inputs:
+    model:
+      dynamic_list:
+        type:
+        - list
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
+        func_args:
+        - name: provider
+          type:
+          - string
+          optional: true
+          default: "openai"
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}  # dynamic reference to another input parameter
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: true
+      # allow user to select multiple values, default false.
+      is_multi_select: true
+    provider:
+      dynamic_list:
+        type:
+        - list
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
+        func_args:
+        - name: model
+          type:
+          - string
+          optional: true
+          default: "gpt-4o"
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}  # dynamic reference to another input parameter
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: true
+      # allow user to select multiple values, default false.
+      is_multi_select: true
     endpoint:
       type:
-        - str
-      optional: true
-      default: ""
-    model:
-      type:
-        - str
-      optional: true
-      default: ""
-    provider:
-      type:
-        - str
-      optional: true
-      default: ""
+        - list
+      dynamic_list:
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_endpoints
+        func_args:
+        - name: model  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.model}  # dynamic reference to another input parameter
+        - name: provider  # another argument name to be passed to the function
+          type:
+          - int
+          optional: true
+          reference: ${inputs.provider}
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: true
+      # allow user to select multiple values, default false.
+      is_multi_select: true
     router:
       type:
         - str
@@ -30,3 +91,4 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
   name: Unify SSO
   description: Tool for single sign on to multiple endpoints
   type: python
+  icon: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAS1BMVEVHcEwAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCiJMrqTAAAAGXRSTlMAPjFUyAR65yreCkqh0h2Gl4C+cGC0qzVGwlRn4wAAAF1JREFUGNOtzzkSgCAQRFGWgZ5hEQUV739SE7SILTt8ya9W6rcFu67RTbDhqPCP9M7SDDfoASlp2ExMfkAhzlWEaRugseuD9gtxgCvwhm0+wxv1AkFapuwSrXFfT9yAMwLxXv2KqQAAAABJRU5ErkJggg== 
