@@ -195,7 +195,6 @@ def single_sign_on(
     endpoint: Optional[str],
     model: Optional[str],
     provider: Optional[str],
-    router: Optional[str],
     unify_api_key: Secret,
 ) -> Unify:
     """Unify connection tool.
@@ -209,7 +208,7 @@ def single_sign_on(
     :param unify_api_key: The Unify API key
     """
 
-    new_endpoint = endpoint or router or f"{model}@{provider}"
+    new_endpoint = endpoint or f"{model}@{provider}"
 
     configs: Dict[str, str] = {
         "endpoint": new_endpoint,
