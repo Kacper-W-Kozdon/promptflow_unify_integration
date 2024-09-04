@@ -160,34 +160,30 @@ def list_endpoints(model: Optional[str], provider: Optional[str], api_key: Optio
         return unify.list_endpoints(model=model)
 
 
-def list_models(provider: Optional[str], api_key: Optional[str]) -> List[str]:
+def list_models(api_key: Optional[str]) -> List[str]:
     """
     Lists models available through Unify.
 
-    :param provider: Provider for which to generate the list of the available models.
-    :type provider: str
     :param api_key:
     :type api_key: str
     """
     try:
-        return unify.list_models(provider=provider, api_key=api_key)
+        return unify.list_models(api_key=api_key)
     except ValueError:
         return unify.list_models()
 
 
-def list_providers(model: Optional[str], api_key: Optional[str]) -> List[str]:
+def list_providers(api_key: Optional[str]) -> List[str]:
     """
     Lists providers available through Unify.
 
-    :param model: Model for which to generate the list of the available providers.
-    :type provider: str
     :param api_key:
     :type api_key: str
     """
     try:
-        return unify.list_providers(model=model, api_key=api_key)
+        return unify.list_providers(api_key=api_key)
     except ValueError:
-        return unify.list_providers(model=model)
+        return unify.list_providers()
 
 
 @tool
