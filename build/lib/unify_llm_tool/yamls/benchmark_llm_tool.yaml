@@ -13,10 +13,6 @@ unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
       type:
         - str
       optional: true
-    router:
-      type:
-        - bool
-      default: false
   module: unify_llm_tool.tools.benchmark_llm_tool
   name: Unify Benchmark
   description: Tool for benchmarking
