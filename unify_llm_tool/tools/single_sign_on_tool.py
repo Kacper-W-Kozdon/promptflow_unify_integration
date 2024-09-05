@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List, Optional, Union, Any
+from typing import Any, Dict, List, Optional, Union
 
 import unify
 import unify.clients
@@ -143,7 +143,9 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
     return strong_unify_connection
 
 
-def list_endpoints(api_key: Optional[str] = "", model: Optional[str] = "", provider: Optional[str] = "", **kwargs: Optional[Any]) -> List[str]:
+def list_endpoints(
+    api_key: str = "", model: Optional[str] = "", provider: Optional[str] = "", **kwargs: Optional[Any]
+) -> List[str]:
     """
     Lists endpoints available through Unify.
 
@@ -163,7 +165,7 @@ def list_endpoints(api_key: Optional[str] = "", model: Optional[str] = "", provi
         return unify.list_endpoints(model=model)
 
 
-def list_models(api_key: Optional[str] = "", **kwargs: Optional[Any]) -> List[str]:
+def list_models(api_key: str = "", **kwargs: Optional[Any]) -> List[str]:
     """
     Lists models available through Unify.
 
@@ -173,11 +175,11 @@ def list_models(api_key: Optional[str] = "", **kwargs: Optional[Any]) -> List[st
     api_key = api_key or kwargs.get("api_key")
     try:
         return unify.list_models(api_key=api_key)
-    except ValueError:
+    except (ValueError, TypeError):
         return unify.list_models()
 
 
-def list_providers(api_key: Optional[str] = "", **kwargs: Optional[Any]) -> List[str]:
+def list_providers(api_key: str = "", **kwargs: Optional[Any]) -> List[str]:
     """
     Lists providers available through Unify.
 
@@ -187,7 +189,7 @@ def list_providers(api_key: Optional[str] = "", **kwargs: Optional[Any]) -> List
     api_key = api_key or kwargs.get("api_key")
     try:
         return unify.list_providers(api_key=api_key)
-    except ValueError:
+    except (ValueError, TypeError):
         return unify.list_providers()
 
 
