@@ -145,7 +145,7 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
 
 def list_endpoints(
     api_key: str = "", model: Optional[str] = "", provider: Optional[str] = "", **kwargs: Optional[Any]
-) -> List[str]:
+) -> List[Dict[str]]:
     """
     Lists endpoints available through Unify.
 
@@ -156,41 +156,53 @@ def list_endpoints(
     :param api_key: Unify API key
     :type api_key: str
     """
+    ret = []
     api_key = api_key or kwargs.get("api_key")
     model = model or kwargs.get("model")
     provider = model or kwargs.get("provider")
     try:
-        return unify.list_endpoints(model=model, provider=provider, api_key=api_key)
+        endpoints = unify.list_endpoints(model=model, provider=provider, api_key=api_key)
     except ValueError:
-        return unify.list_endpoints(model=model)
+        endpoints = unify.list_endpoints(model=model)
+    for endpoint in endpoints:
+        ret.append({"value": endpoint})
+    return ret
 
 
-def list_models(api_key: str = "", **kwargs: Optional[Any]) -> List[str]:
+def list_models(api_key: str = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
     """
     Lists models available through Unify.
 
     :param api_key:
     :type api_key: str
     """
+    ret = []
     api_key = api_key or kwargs.get("api_key")
     try:
-        return unify.list_models(api_key=api_key)
+        models = unify.list_models(api_key=api_key)
     except (ValueError, TypeError):
-        return unify.list_models()
+        models = unify.list_models()
+    for model in models:
+        ret.append({"value": model})
+    return ret
 
 
-def list_providers(api_key: str = "", **kwargs: Optional[Any]) -> List[str]:
+def list_providers(api_key: str = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
     """
     Lists providers available through Unify.
 
     :param api_key:
     :type api_key: str
     """
+    ret = []
     api_key = api_key or kwargs.get("api_key")
     try:
-        return unify.list_providers(api_key=api_key)
+        providers = unify.list_providers(api_key=api_key)
     except (ValueError, TypeError):
-        return unify.list_providers()
+        providers = unify.list_providers()
+    for provider in providers:
+        ret.append({"value": provider})
+    return ret
 
 
 @tool
