@@ -144,7 +144,10 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
 
 
 def list_endpoints(
-    api_key: str = "", model: Optional[str] = "", provider: Optional[str] = "", **kwargs: Optional[Any]
+    api_key: Union[str, Any, None] = "",
+    model: Optional[str] = "",
+    provider: Optional[str] = "",
+    **kwargs: Optional[Any],
 ) -> List[Dict[str]]:
     """
     Lists endpoints available through Unify.
@@ -169,7 +172,7 @@ def list_endpoints(
     return ret
 
 
-def list_models(api_key: str = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
+def list_models(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
     """
     Lists models available through Unify.
 
@@ -187,7 +190,7 @@ def list_models(api_key: str = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
     return ret
 
 
-def list_providers(api_key: str = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
+def list_providers(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
     """
     Lists providers available through Unify.
 
@@ -210,6 +213,7 @@ def single_sign_on(
     endpoint: Optional[str],
     model: Optional[str],
     provider: Optional[str],
+    custom: Optional[str],
     unify_api_key: Secret,
 ) -> Unify:
     """Unify connection tool.
@@ -220,12 +224,17 @@ def single_sign_on(
     :type model: str
     :param provider: The provider from the list of providers available for the model.
     :type provider: str
+    :param custom: Custom endpoint or router. Works with optimize_llm_tool
     :param unify_api_key: The Unify API key
+    :type unify_api_key: str
     """
 
-    new_endpoint = endpoint or f"{model}@{provider}"
+    if custom:
+        assert isinstance(custom, (str, dict)), "Custom endpoint formatted incorrectly"
+        custom_endpoint = custom if isinstance(custom, str) else endpoint.get("optimal_endpoint")
+    new_endpoint: str = endpoint or f"{model}@{provider}" or custom_endpoint
 
-    configs: Dict[str, str] = {
+    configs: Dict[str, Union[str, None]] = {
         "endpoint": new_endpoint,
     }
 
