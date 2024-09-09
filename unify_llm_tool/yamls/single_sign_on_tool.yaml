@@ -88,7 +88,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by:
       - model
       - provider
-      enabled_by_value: [any]
+      enabled_by_value: ["${inputs.model}", "${inputs.provider}"]
     custom:
       type:
       - str
