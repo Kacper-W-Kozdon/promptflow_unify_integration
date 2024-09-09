@@ -144,9 +144,9 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
 
 
 def list_endpoints(
-    api_key: Union[str, Any, None] = "",
-    model: Optional[str] = "",
-    provider: Optional[str] = "",
+    api_key: Union[str, Any, None] = None,
+    model: Optional[str] = None,
+    provider: Optional[str] = None,
     **kwargs: Optional[Any],
 ) -> List[Dict[str, str]]:
     """
