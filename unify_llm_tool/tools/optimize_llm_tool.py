@@ -22,7 +22,6 @@ def optimize_llm(
     :type input_text: Union[str, Sequence]
     """
     connection_instance = connection.connection_instance if isinstance(connection, UnifyConnection) else connection
-    assert isinstance(connection_instance.get_credit_balance(), (str, float, int))
     if not isinstance(config, dict):
         config = {}
     quality: str = config.get("quality", "1")

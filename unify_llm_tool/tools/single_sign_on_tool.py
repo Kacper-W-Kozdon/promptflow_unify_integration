@@ -148,7 +148,7 @@ def list_endpoints(
     model: Optional[str] = "",
     provider: Optional[str] = "",
     **kwargs: Optional[Any],
-) -> List[Dict[str]]:
+) -> List[Dict[str, str]]:
     """
     Lists endpoints available through Unify.
 
@@ -172,7 +172,7 @@ def list_endpoints(
     return ret
 
 
-def list_models(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
+def list_models(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str, str]]:
     """
     Lists models available through Unify.
 
@@ -190,7 +190,7 @@ def list_models(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) ->
     return ret
 
 
-def list_providers(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str]]:
+def list_providers(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any]) -> List[Dict[str, str]]:
     """
     Lists providers available through Unify.
 
@@ -213,8 +213,8 @@ def single_sign_on(
     endpoint: Optional[str],
     model: Optional[str],
     provider: Optional[str],
-    custom: Optional[str],
     unify_api_key: Secret,
+    custom: Optional[str] = None,
 ) -> Unify:
     """Unify connection tool.
 
@@ -225,6 +225,7 @@ def single_sign_on(
     :param provider: The provider from the list of providers available for the model.
     :type provider: str
     :param custom: Custom endpoint or router. Works with optimize_llm_tool
+    :type custom: str
     :param unify_api_key: The Unify API key
     :type unify_api_key: str
     """
