@@ -3,6 +3,7 @@ setup.cfg
 setup.py
 tests/__init__.py
 tests/quick_test.py
+tests/test_unify_llm.py
 tests/test_unify_llm_tool.py
 unify_integration.egg-info/PKG-INFO
 unify_integration.egg-info/SOURCES.txt
