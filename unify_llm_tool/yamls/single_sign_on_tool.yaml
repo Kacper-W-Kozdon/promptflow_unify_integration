@@ -86,9 +86,8 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       # allow user to select multiple values, default false.
       is_multi_select: true
       enabled_by:
-      - model
-      - provider
-      enabled_by_value: ["${inputs.model}", "${inputs.provider}"]
+      - find_endpoint_by
+      enabled_by_value: [model, provider]
     custom:
       type:
       - str
