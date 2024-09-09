@@ -97,5 +97,5 @@ def benchmark_models(
         return get_benchmarks(endpoints_list=endpoints_list, api_key=api_key)
 
     url = f"{_base_url}/router/deploy/list"
-    benchmark_list = requests.get(url, headers=headers, params=params, timeout=10)
+    benchmark_list = requests.get(url, headers=headers, params=endpoints_params, timeout=10)
     return benchmark_list
