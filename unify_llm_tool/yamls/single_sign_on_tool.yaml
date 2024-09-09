@@ -88,11 +88,12 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by:
       - model
       - provider
+      enabled_by_value: [any]
     custom:
       type:
       - str
       enabled_by: find_endpoint_by
-      enabled_by_value: custom
+      enabled_by_value: [custom]
   module: unify_llm_tool.tools.single_sign_on_tool
   name: Unify SSO
   description: Tool for single sign on to multiple endpoints
