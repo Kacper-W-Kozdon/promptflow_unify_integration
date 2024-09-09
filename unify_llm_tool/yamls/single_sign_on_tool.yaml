@@ -70,7 +70,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
           reference: ${inputs.model}  # dynamic reference to another input parameter
         - name: provider  # another argument name to be passed to the function
           type:
-          - int
+          - string
           optional: true
           reference: ${inputs.provider}
         - name: api_key  # argument name to be passed to the function
