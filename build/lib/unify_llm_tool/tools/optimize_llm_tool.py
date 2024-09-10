@@ -5,7 +5,7 @@ from unify import Unify
 from promptflow.client import PFClient
 from promptflow.contracts.types import Secret
 from promptflow.core import tool
-from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection
+from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, single_sign_on
 
 pf = PFClient()
 
@@ -13,8 +13,8 @@ pf = PFClient()
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 @tool
 def optimize_llm(
-    unify_api_key: Optional[Secret],  # noqa: W0613
-    connection: Union[Unify, UnifyConnection],
+    unify_api_key: Secret,  # noqa: W0613
+    connection: Optional[Union[Unify, UnifyConnection]],
     quality: Optional[str],
     cost: Optional[str],
     time_to_first_token: Optional[str],
@@ -48,6 +48,10 @@ def optimize_llm(
     :param input_text:
     :type input_text: Union[str, Sequence]
     """
+
+    if not connection:
+        connection = single_sign_on(endpoint=endpoint, model=model, provider=provider, unify_api_key=unify_api_key)
+    assert connection.name == "unify_connection", "Incorrect connection base."
     connection_instance = connection.connection_instance if isinstance(connection, UnifyConnection) else connection
 
     router: str = f"router@q:{quality}|c:{cost}|t:{time_to_first_token}|i:{inter_token_latency}"

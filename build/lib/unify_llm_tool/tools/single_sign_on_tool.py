@@ -144,9 +144,10 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
 
 
 def list_endpoints(
-    api_key: Union[str, Any, None] = "",
-    model: Optional[str] = "",
-    provider: Optional[str] = "",
+    api_key: Union[str, Any, None] = None,
+    model: Optional[str] = None,
+    provider: Optional[str] = None,
+    find_endpoints_by: Optional[str] = None,
     **kwargs: Optional[Any],
 ) -> List[Dict[str, str]]:
     """
@@ -161,12 +162,12 @@ def list_endpoints(
     """
     ret = []
     api_key = api_key or kwargs.get("api_key")
-    model = model or kwargs.get("model")
-    provider = model or kwargs.get("provider")
+    model = None if find_endpoints_by in ["provider", None] else (model or kwargs.get("model"))
+    provider = None if find_endpoints_by in ["model", None] else (provider or kwargs.get("provider"))
     try:
         endpoints = unify.list_endpoints(model=model, provider=provider, api_key=api_key)
     except ValueError:
-        endpoints = unify.list_endpoints(model=model)
+        endpoints = unify.list_endpoints(api_key=api_key)
     for endpoint in endpoints:
         ret.append({"value": endpoint})
     return ret
@@ -227,7 +228,7 @@ def single_sign_on(
     :param custom: Custom endpoint or router. Works with optimize_llm_tool
     :type custom: str
     :param unify_api_key: The Unify API key
-    :type unify_api_key: str
+    :type unify_api_key: Secret
     """
 
     if custom:
