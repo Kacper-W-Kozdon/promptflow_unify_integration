@@ -1,6 +1,9 @@
 unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   function: optimize_llm
   inputs:
+    unify_api_key:
+      type: Secret
+      optional: true
     connection:
       custom_type:
         - UnifyConnection
@@ -8,10 +11,84 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       type:
         - CustomConnection
       default: unify_connection
-    config:
-      type:
-        - dict
+    quality:
+      type: string
       optional: true
+    cost:
+      type: string
+      optional: true
+    time_to_first_token:
+      type: string
+      optional: true
+    inter_token_latency:
+      type: string
+      optional: true
+    endpoint:
+      type:
+        - list
+      dynamic_list:
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_endpoints
+        func_kwargs:
+        - name: model  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.model}  # dynamic reference to another input parameter
+        - name: provider  # another argument name to be passed to the function
+          type:
+          - string
+          optional: true
+          reference: ${inputs.provider}
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: false
+      # allow user to select multiple values, default false.
+      is_multi_select: true
+    model:
+      dynamic_list:
+        type:
+        - list
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
+        func_kwargs:
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}  # dynamic reference to another input parameter
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: false
+      # allow user to select multiple values, default false.
+      is_multi_select: true
+    provider:
+      dynamic_list:
+        type:
+        - list
+        func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
+        func_kwargs:
+        - name: api_key  # argument name to be passed to the function
+          type:
+          - string
+          # if optional is not specified, default to false.
+          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
+          optional: true
+          reference: ${inputs.unify_api_key}  # dynamic reference to another input parameter
+      # enum and dynamic list may need below setting.
+      # allow user to enter input value manually, default false.
+      allow_manual_entry: false
+      # allow user to select multiple values, default false.
+      is_multi_select: true
     input_text:
       type:
         - str
