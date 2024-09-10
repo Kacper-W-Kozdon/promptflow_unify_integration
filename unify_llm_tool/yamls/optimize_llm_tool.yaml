@@ -54,9 +54,9 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       # allow user to select multiple values, default false.
       is_multi_select: true
     model:
-      dynamic_list:
-        type:
+      type:
         - list
+      dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -72,9 +72,9 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       # allow user to select multiple values, default false.
       is_multi_select: true
     provider:
-      dynamic_list:
-        type:
+      type:
         - list
+      dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
