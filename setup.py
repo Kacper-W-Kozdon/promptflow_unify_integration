@@ -7,6 +7,7 @@ setup(
     version="0.0.14",
     description="The Unify tool package gives access to a single sign on client with multiple LLM endpoints and their metadata",  # noqa: E501
     packages=find_packages(),
+    extras_require={"dev": ["requests_mock", "python_dotenv"], "build": ["promptflow", "unifyai"]},
     entry_points={
         "package_tools": ["unify_llm = unify_llm_tool.tools.utils:list_package_tools"],
     },
