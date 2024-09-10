@@ -9,22 +9,27 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       default: '{{env: UNIFY_API_KEY}}'
     connection:
       custom_type:
-        - UnifyConnection
         - Unify
+        - UnifyConnection
       type:
         - CustomConnection
+      optional: true
       default: unify_connection
     quality:
-      type: string
+      type:
+        - str
       optional: true
     cost:
-      type: string
+      type:
+        - str
       optional: true
     time_to_first_token:
-      type: string
+      type:
+        - str
       optional: true
     inter_token_latency:
-      type: string
+      type:
+        - str
       optional: true
     endpoint:
       type:
@@ -32,16 +37,6 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_endpoints
         func_kwargs:
-        - name: model  # argument name to be passed to the function
-          type:
-          - string
-          # if optional is not specified, default to false.
-          # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
-          optional: true
-        - name: provider  # another argument name to be passed to the function
-          type:
-          - string
-          optional: true
         - name: api_key  # argument name to be passed to the function
           type:
           - string
@@ -54,9 +49,9 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       # allow user to select multiple values, default false.
       is_multi_select: true
     model:
-      type:
-        - list
       dynamic_list:
+        type:
+        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -72,9 +67,9 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       # allow user to select multiple values, default false.
       is_multi_select: true
     provider:
-      type:
-        - list
       dynamic_list:
+        type:
+        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -91,7 +86,7 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       is_multi_select: true
     input_text:
       type:
-        - string
+        - str
       optional: true
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
