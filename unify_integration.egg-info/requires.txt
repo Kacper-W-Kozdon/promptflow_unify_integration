@@ -1,0 +1,8 @@
+
+[build]
+promptflow
+unifyai
+
+[dev]
+requests_mock
+python_dotenv
