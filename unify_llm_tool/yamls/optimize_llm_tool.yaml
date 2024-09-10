@@ -2,8 +2,11 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
   function: optimize_llm
   inputs:
     unify_api_key:
-      type: Secret
-      optional: true
+      custom_type:
+        - Secret
+      type:
+        - str
+      default: '{{env: UNIFY_API_KEY}}'
     connection:
       custom_type:
         - UnifyConnection
@@ -91,7 +94,7 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       is_multi_select: true
     input_text:
       type:
-        - str
+        - string
       optional: true
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
