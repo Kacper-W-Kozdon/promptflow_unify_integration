@@ -162,8 +162,8 @@ def list_endpoints(
     """
     ret = []
     api_key = api_key or kwargs.get("api_key")
-    model = None if find_endpoints_by == "provider" else (model or kwargs.get("model"))
-    provider = None if find_endpoints_by == "model" else (provider or kwargs.get("provider"))
+    model = None if find_endpoints_by in ["provider", None] else (model or kwargs.get("model"))
+    provider = None if find_endpoints_by in ["model", None] else (provider or kwargs.get("provider"))
     try:
         endpoints = unify.list_endpoints(model=model, provider=provider, api_key=api_key)
     except ValueError:
@@ -228,7 +228,7 @@ def single_sign_on(
     :param custom: Custom endpoint or router. Works with optimize_llm_tool
     :type custom: str
     :param unify_api_key: The Unify API key
-    :type unify_api_key: str
+    :type unify_api_key: Secret
     """
 
     if custom:
