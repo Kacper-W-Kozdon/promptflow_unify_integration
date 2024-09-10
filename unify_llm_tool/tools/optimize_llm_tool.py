@@ -2,35 +2,53 @@ from typing import Optional, Sequence, Union
 
 from unify import Unify
 
+from promptflow.client import PFClient
+from promptflow.contracts.types import Secret
 from promptflow.core import tool
 from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection
+
+pf = PFClient()
 
 
 # Unify client as the connection is a temporary solution before the final approach is chosen (CustomConnection?)
 @tool
 def optimize_llm(
-    connection: Union[Unify, UnifyConnection], config: Optional[dict], input_text: Union[str, Sequence] = " "
+    unify_api_key: Optional[Secret],  # noqa: W0613
+    connection: Union[Unify, UnifyConnection],
+    quality: Optional[str],
+    cost: Optional[str],
+    time_to_first_token: Optional[str],
+    inter_token_latency: Optional[str],
+    endpoint: Optional[str],
+    model: Optional[str],
+    provider: Optional[str],
+    input_text: Union[str, Sequence] = " ",
 ) -> Union[dict, str]:
     """
     Selects the optimal model for a step of a flow.
 
+    :param unify_api_key:
+    :type unify_api_key: Secret
     :param connection: Unify client to use for connection
     :type connection: Unify
-    :param config: requirements for the optimization
-    :type config: Optional[dict]
+    :param quality:
+    :type quality: str
+    :param cost:
+    :type cost: str
+    :param time_to_first_token:
+    :type time_to_first_token: str
+    :param inter_token_latency:
+    :type inter_token_latency: str
+    :param endpoint:
+    :type endpoint: str
+    :param model:
+    :type model: str
+    :param provider:
+    :type provider: str
     :param input_text:
     :type input_text: Union[str, Sequence]
     """
     connection_instance = connection.connection_instance if isinstance(connection, UnifyConnection) else connection
-    if not isinstance(config, dict):
-        config = {}
-    quality: str = config.get("quality", "1")
-    cost: str = config.get("cost", "4.65e-03")
-    time_to_first_token: str = config.get("time_to_first_token", "2.08e-05")
-    inter_token_latency: str = config.get("inter_token_latency", "2.07e-03")
-    endpoint: Union[list[str], str] = config.get("endpoint", None)
-    model: Union[list[str], str] = config.get("model", None)
-    provider: Union[list[str], str] = config.get("provider", None)
 
     router: str = f"router@q:{quality}|c:{cost}|t:{time_to_first_token}|i:{inter_token_latency}"
 
@@ -64,4 +82,7 @@ def optimize_llm(
 
     response = connection_instance.generate(input_text)
     endpoint = connection_instance.endpoint
+
+    connection.configs["endpoint"] = endpoint
+    pf.connections.create_or_update(connection)
     return {"optimal_endpoint": endpoint, "response": response}
