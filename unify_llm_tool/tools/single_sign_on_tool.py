@@ -31,9 +31,9 @@ class UnifyClient(Unify):
     def __init__(self, configs: dict = None, secrets: dict = None, **kwargs: dict):
         load_dotenv()
         api_key = (
-            secrets.get("api_key")
-            or kwargs.get("api_key")
-            or configs.get("api_key")
+            secrets.get("unify_api_key")
+            or kwargs.get("unify_api_key")
+            or configs.get("unify_api_key")
             or os.getenv("UNIFY_API_KEY")
             or os.getenv("UNIFY_KEY")
         )
