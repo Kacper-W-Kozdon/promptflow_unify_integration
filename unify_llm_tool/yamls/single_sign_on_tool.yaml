@@ -91,7 +91,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       # allow user to select multiple values, default false.
       is_multi_select: false
       enabled_by: validate_input
-      enabled_by_value: true
+      enabled_by_value: false
     custom:
       type:
       - str
