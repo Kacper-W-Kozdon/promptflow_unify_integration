@@ -80,6 +80,11 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
           # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
           optional: true
           reference: ${inputs.unify_api_key}
+        - name: find_endpoints_by
+          type:
+          - string
+          optional: true
+          reference: ${inputs.find_endpoints_by}
       # enum and dynamic list may need below setting.
       # allow user to enter input value manually, default false.
       allow_manual_entry: false
