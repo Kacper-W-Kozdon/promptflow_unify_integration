@@ -227,6 +227,7 @@ def single_sign_on(
     provider: Optional[str],
     unify_api_key: Secret,
     custom: Optional[str] = None,
+    **kwargs: Optional[Any],  # noqa: W0613
 ) -> Unify:
     """Unify connection tool.
 
