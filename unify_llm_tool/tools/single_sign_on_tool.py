@@ -159,6 +159,8 @@ def list_endpoints(
     :type provider: str
     :param api_key: Unify API key
     :type api_key: str
+    :param find_endpoints_by: "model" or "provider"
+    :type find_endpoints_by: str
     """
     ret = []
     api_key = api_key or kwargs.get("api_key")
