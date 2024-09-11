@@ -93,7 +93,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
           type:
           - string
           optional: true
-          reference: ${inputs.find_endpoints_by}
+          reference: ${inputs.find_endpoint_by}
       # enum and dynamic list may need below setting.
       # allow user to enter input value manually, default false.
       allow_manual_entry: false
