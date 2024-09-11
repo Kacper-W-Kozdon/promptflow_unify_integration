@@ -5,7 +5,7 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       custom_type:
         - Secret
       type:
-        - str
+        - string
       default: '{{env: UNIFY_API_KEY}}'
     connection:
       custom_type:
@@ -17,19 +17,19 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       default: unify_connection
     quality:
       type:
-        - str
+        - string
       optional: true
     cost:
       type:
-        - str
+        - string
       optional: true
     time_to_first_token:
       type:
-        - str
+        - string
       optional: true
     inter_token_latency:
       type:
-        - str
+        - string
       optional: true
     endpoint:
       type:
@@ -86,7 +86,7 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       is_multi_select: true
     input_text:
       type:
-        - str
+        - string
       optional: true
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize

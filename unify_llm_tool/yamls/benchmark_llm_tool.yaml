@@ -11,7 +11,7 @@ unify_llm_tool.tools.benchmark_llm_tool.benchmark_models:
       optional: true
     api_key:
       type:
-        - str
+        - string
       optional: true
   module: unify_llm_tool.tools.benchmark_llm_tool
   name: Unify Benchmark
