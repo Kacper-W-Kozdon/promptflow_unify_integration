@@ -17,7 +17,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by: unify_api_key
     model:
       type:
-      - list
+      - string
       dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
         func_kwargs:
@@ -37,7 +37,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by_value: [model]
     provider:
       type:
-      - list
+      - string
       dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
         func_kwargs:
