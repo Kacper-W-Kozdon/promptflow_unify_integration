@@ -253,7 +253,7 @@ def single_sign_on(
     }
 
     # Create the connection, note that all secret values will be scrubbed in the returned result
-    connection = UnifyConnection(secrets={"api_key": unify_api_key}, configs=configs)
+    connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
     pf.connections.create_or_update(connection)
 
     return connection
