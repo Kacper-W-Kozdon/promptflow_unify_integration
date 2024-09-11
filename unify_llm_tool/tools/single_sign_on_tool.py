@@ -222,10 +222,10 @@ def list_providers(api_key: Union[str, Any, None] = "", **kwargs: Optional[Any])
 
 @tool
 def single_sign_on(
-    endpoint: Optional[str],
-    model: Optional[str],
-    provider: Optional[str],
     unify_api_key: Secret,
+    endpoint: Optional[str] = None,
+    model: Optional[str] = None,
+    provider: Optional[str] = None,
     custom: Optional[str] = None,
     **kwargs: Optional[Any],  # noqa: W0613
 ) -> Unify:
