@@ -16,9 +16,9 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
         - custom
       enabled_by: unify_api_key
     model:
+      type:
+      - list
       dynamic_list:
-        type:
-        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -36,9 +36,9 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by: find_endpoint_by
       enabled_by_value: [model]
     provider:
+      type:
+      - list
       dynamic_list:
-        type:
-        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
