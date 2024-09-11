@@ -54,6 +54,15 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       # allow user to select multiple values, default false.
       is_multi_select: true
       enabled_by: model
+    search_endpoint:
+      type:
+        - string
+      enum:
+        - continue
+        - back
+      default: back
+      enabled_by: find_endpoints_by
+      enabled_by_value: [model, provider]
     endpoint:
       type:
         - list
@@ -89,8 +98,8 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       allow_manual_entry: false
       # allow user to select multiple values, default false.
       is_multi_select: false
-      enabled_by: find_endpoints_by
-      enabled_by_value: [model, provider]
+      enabled_by: search_endpoints
+      enabled_by_value: [continue]
     custom:
       type:
       - str
