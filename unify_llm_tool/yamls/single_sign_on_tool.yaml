@@ -66,7 +66,7 @@ unify_llm_tool.tools.single_sign_on_tool.single_sign_on:
       enabled_by_value: [model, provider]
     endpoint:
       type:
-        - list
+        - string
       dynamic_list:
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_endpoints
         func_kwargs:
