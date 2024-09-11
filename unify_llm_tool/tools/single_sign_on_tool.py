@@ -143,6 +143,16 @@ def create_strong_unify_connection() -> Union[Unify, UnifyConnection]:
     return strong_unify_connection
 
 
+def validate_input(**inputs: Any) -> bool:
+    """
+    Validates that input is not null.
+
+    :param input: Any input
+    :type input: Any
+    """
+    return any([input not in ["", " ", None] for input in inputs.values()])
+
+
 def list_endpoints(
     api_key: Union[str, Any, None] = None,
     model: Optional[str] = None,
