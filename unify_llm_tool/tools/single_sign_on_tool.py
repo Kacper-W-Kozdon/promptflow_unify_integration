@@ -176,10 +176,9 @@ def list_endpoints(
     api_key = api_key or kwargs.get("api_key")
     model = None if find_endpoints_by in ["provider", None] else (model or kwargs.get("model"))
     provider = None if find_endpoints_by in ["model", None] else (provider or kwargs.get("provider"))
-    try:
-        endpoints = unify.list_endpoints(model=model, provider=provider, api_key=api_key)
-    except ValueError:
-        endpoints = unify.list_endpoints(api_key=api_key)
+    print(model, provider)
+    endpoints = unify.list_endpoints(model=model, provider=provider, api_key=api_key)
+
     for endpoint in endpoints:
         ret.append({"value": endpoint})
     return ret
