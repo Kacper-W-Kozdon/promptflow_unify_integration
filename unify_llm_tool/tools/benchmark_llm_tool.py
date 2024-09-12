@@ -49,7 +49,7 @@ def get_benchmarks(endpoints_list: list, api_key: Union[Secret, str]) -> Union[O
 @tool
 def benchmark_models(
     models: Optional[list], providers: Optional[list], api_key: Union[str, Secret] = _api_key, router: bool = False
-) -> Union[OrderedDict, object]:
+) -> Union[OrderedDict, object, dict]:
     """
     Provides the list of available endpoints or routers.
     If either models or providers are passed to the tool,
@@ -98,4 +98,4 @@ def benchmark_models(
 
     url = f"{_base_url}/router/deploy/list"
     benchmark_list = requests.get(url, headers=headers, params=endpoints_params, timeout=10)
-    return benchmark_list
+    return {"value": benchmark_list, "name": "benchmarks"}

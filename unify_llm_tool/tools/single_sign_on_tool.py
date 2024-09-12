@@ -228,7 +228,7 @@ def single_sign_on(
     provider: Optional[str] = None,
     custom: Optional[str] = None,
     **kwargs: Optional[Any],  # noqa: W0613
-) -> Unify:
+) -> Union[Unify, Dict[str, Any]]:
     """Unify connection tool.
 
     :param endpoint: The endpoint to use.
@@ -246,7 +246,7 @@ def single_sign_on(
     if custom:
         assert isinstance(custom, (str, dict)), "Custom endpoint formatted incorrectly"
         custom_endpoint = custom if isinstance(custom, str) else endpoint.get("optimal_endpoint")
-    new_endpoint: str = endpoint or f"{model}@{provider}" or custom_endpoint
+    new_endpoint: str = endpoint or custom_endpoint or f"{model}@{provider}"
 
     configs: Dict[str, Union[str, None]] = {
         "endpoint": new_endpoint,
@@ -256,4 +256,4 @@ def single_sign_on(
     connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
     pf.connections.create_or_update(connection)
 
-    return connection
+    return {"value": connection, "name": "connection"}

@@ -31,6 +31,13 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       type:
         - string
       optional: true
+    change_endpoints:
+      type:
+        - string
+      enum:
+        - continue
+        - back
+      default: back
     endpoint:
       type:
         - list
@@ -43,15 +50,18 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
           # if optional is not specified, default to false.
           # this is for UX pre-validaton. If optional is false, but no input. UX can throw error in advanced.
           optional: true
+          reference: ${inputs.unify_api_key}
       # enum and dynamic list may need below setting.
       # allow user to enter input value manually, default false.
       allow_manual_entry: false
       # allow user to select multiple values, default false.
       is_multi_select: true
+      enabled_by: change_endpoints
+      enabled_by_value: [continue]
     model:
+      type:
+      - list
       dynamic_list:
-        type:
-        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_models
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -66,10 +76,12 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       allow_manual_entry: false
       # allow user to select multiple values, default false.
       is_multi_select: true
+      enabled_by: change_endpoints
+      enabled_by_value: [continue]
     provider:
+      type:
+      - list
       dynamic_list:
-        type:
-        - list
         func_path: unify_llm_tool.tools.single_sign_on_tool.list_providers
         func_kwargs:
         - name: api_key  # argument name to be passed to the function
@@ -84,10 +96,13 @@ unify_llm_tool.tools.optimize_llm_tool.optimize_llm:
       allow_manual_entry: false
       # allow user to select multiple values, default false.
       is_multi_select: true
+      enabled_by: change_endpoints
+      enabled_by_value: [continue]
     input_text:
       type:
         - string
       optional: true
+      default: "Hello"
   module: unify_llm_tool.tools.optimize_llm_tool
   name: Unify Optimize
   description: Tool for routing and LLM optimization
