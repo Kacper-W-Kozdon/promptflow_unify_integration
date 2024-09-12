@@ -23,7 +23,7 @@ def optimize_llm(
     model: Optional[str],
     provider: Optional[str],
     input_text: Union[str, Sequence] = " ",
-) -> Union[dict, str]:
+) -> Union[dict, str, tuple]:
     """
     Selects the optimal model for a step of a flow.
 
@@ -89,4 +89,6 @@ def optimize_llm(
 
     connection.configs["endpoint"] = endpoint
     pf.connections.create_or_update(connection)
-    return {"optimal_endpoint": endpoint, "response": response}
+    ret_endpoint: str = endpoint
+    ret_response: str = response
+    return {"value": ret_endpoint, "name": "optimal_endpoint"}, {"value": ret_response, "name": "response"}
