@@ -76,6 +76,8 @@ class UnifyConnection(CustomConnection):
     class_name = "UnifyConnection"
     TYPE = ConnectionType.CUSTOM.value
 
+    _connection_instance: UnifyClient = None
+
     _default_endpoint: str = "gpt-4o@openai"
 
     _Connection_configs: Dict[str, str] = {
@@ -118,6 +120,14 @@ class UnifyConnection(CustomConnection):
 
         if convert_to_strong_type:
             self.convert_to_strong_type()
+
+    @property
+    def connection_instance(self) -> UnifyClient:
+        return self._connection_instance
+
+    @connection_instance.setter
+    def connection_instance(self, instance: UnifyClient) -> None:
+        self._connection_instance = instance
 
     def convert_to_strong_type(self) -> Unify:
         """
@@ -270,4 +280,5 @@ def single_sign_on(
 
     ret: dict = {"value": connection.__dict__.get("configs"), "name": "unify_connection"}
     ret_pickled = json.dumps(ret)
+
     return ret_pickled
