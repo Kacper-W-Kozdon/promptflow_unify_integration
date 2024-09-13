@@ -1,3 +1,4 @@
+import json
 import os
 from collections import OrderedDict
 from importlib.metadata import version
@@ -98,4 +99,6 @@ def benchmark_models(
 
     url = f"{_base_url}/router/deploy/list"
     benchmark_list = requests.get(url, headers=headers, params=endpoints_params, timeout=10)
-    return {"value": benchmark_list, "name": "benchmarks"}
+    ret: dict = {"value": benchmark_list, "name": "benchmarks"}
+    ret_pickled = json.dumps(ret)
+    return ret_pickled

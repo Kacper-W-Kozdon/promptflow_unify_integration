@@ -1,3 +1,4 @@
+import json
 import os
 from typing import Any, Dict, List, Optional, Union
 
@@ -256,4 +257,6 @@ def single_sign_on(
     connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
     pf.connections.create_or_update(connection)
 
-    return {"value": connection, "name": "connection"}
+    ret: dict = {"value": connection, "name": "connection"}
+    ret_pickled = json.dumps(ret)
+    return ret_pickled
