@@ -271,7 +271,7 @@ def single_sign_on(
 
     connection_openai_base = OpenAIConnection(
         name="unify_connection_openai",
-        api_key="<your-api-key>",
+        api_key=f"{unify_api_key}",
         base_url=f"{connection.api_base}",
         endpoint=f"{connection.connection_instance.endpoint}",
     )
