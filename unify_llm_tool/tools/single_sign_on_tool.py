@@ -273,7 +273,7 @@ def single_sign_on(
         name="unify_connection_openai",
         api_key=f"{unify_api_key}",
         base_url=f"{connection.api_base}",
-        endpoint=f"{connection.connection_instance.endpoint}",
+        model=f"{connection.connection_instance.endpoint}",
     )
 
     pf.connections.create_or_update(connection_openai_base)
