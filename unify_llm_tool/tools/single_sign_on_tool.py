@@ -257,6 +257,6 @@ def single_sign_on(
     connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
     pf.connections.create_or_update(connection)
 
-    ret: dict = {"value": connection.__dict__, "name": "unify_connection"}
+    ret: dict = {"value": connection.__dict__.get("configs"), "name": "unify_connection"}
     ret_pickled = json.dumps(ret)
     return ret_pickled
