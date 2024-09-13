@@ -12,6 +12,7 @@ from promptflow.client import PFClient
 from promptflow.connections import CustomConnection
 from promptflow.contracts.types import Secret
 from promptflow.core import tool
+from promptflow.entities import OpenAIConnection
 
 # Get a pf client to manage connections
 pf = PFClient()
@@ -75,6 +76,8 @@ class UnifyConnection(CustomConnection):
     class_name = "UnifyConnection"
     TYPE = ConnectionType.CUSTOM.value
 
+    _connection_instance: UnifyClient = None
+
     _default_endpoint: str = "gpt-4o@openai"
 
     _Connection_configs: Dict[str, str] = {
@@ -117,6 +120,14 @@ class UnifyConnection(CustomConnection):
 
         if convert_to_strong_type:
             self.convert_to_strong_type()
+
+    @property
+    def connection_instance(self) -> UnifyClient:
+        return self._connection_instance
+
+    @connection_instance.setter
+    def connection_instance(self, instance: UnifyClient) -> None:
+        self._connection_instance = instance
 
     def convert_to_strong_type(self) -> Unify:
         """
@@ -255,8 +266,19 @@ def single_sign_on(
 
     # Create the connection, note that all secret values will be scrubbed in the returned result
     connection = UnifyConnection(secrets={"unify_api_key": unify_api_key}, configs=configs)
+
     pf.connections.create_or_update(connection)
+
+    connection_openai_base = OpenAIConnection(
+        name="unify_connection_openai",
+        api_key="<your-api-key>",
+        base_url=f"{connection.api_base}",
+        endpoint=f"{connection.connection_instance.endpoint}",
+    )
+
+    pf.connections.create_or_update(connection_openai_base)
 
     ret: dict = {"value": connection.__dict__.get("configs"), "name": "unify_connection"}
     ret_pickled = json.dumps(ret)
+
     return ret_pickled
