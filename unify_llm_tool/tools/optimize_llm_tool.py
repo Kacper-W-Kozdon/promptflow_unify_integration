@@ -1,5 +1,4 @@
-import json
-from typing import Any, Optional, Sequence, Union
+from typing import Optional, Sequence, Union
 
 from unify import Unify
 
@@ -90,11 +89,6 @@ def optimize_llm(
 
     connection.configs["endpoint"] = endpoint
     pf.connections.create_or_update(connection)
-    ret_endpoint: str = endpoint
-    ret_response: str = response
-    ret: tuple[dict[Any, Any], ...] = {"value": ret_endpoint, "name": "optimal_endpoint"}, {
-        "value": ret_response,
-        "name": "response",
-    }
-    ret_pickled: tuple = json.dumps(ret[0]), json.dumps(ret[1])
-    return ret_pickled
+    ret_endpoint: str = endpoint or connection._default_endpoint
+
+    return ret_endpoint
