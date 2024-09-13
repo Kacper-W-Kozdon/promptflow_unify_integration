@@ -1,4 +1,3 @@
-import json
 import os
 from typing import Any, Dict, List, Optional, Union
 
@@ -278,7 +277,6 @@ def single_sign_on(
 
     pf.connections.create_or_update(connection_openai_base)
 
-    ret: dict = {"value": connection.__dict__.get("configs"), "name": "unify_connection"}
-    ret_pickled = json.dumps(ret)
+    ret: str = connection.connection_instance.endpoint
 
-    return ret_pickled
+    return ret
