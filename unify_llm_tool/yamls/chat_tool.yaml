@@ -1,0 +1,21 @@
+unify_llm_tool.tools.chat_tool.basic_chat:
+  function: basic_chat
+  inputs:
+    connection:
+      type: CustomConnection
+      custom_type:
+        - UnifyConnection
+        - Unify
+      default: unify_connection
+    message:
+      type: string
+      optional: true
+    chat_history:
+      type: list
+      optional: true
+      default: []
+  module: unify_llm_tool.tools.chat_tool
+  name: Unify Chat
+  description: Tool for chatting with custom endpoints
+  type: python
+  icon: data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAS1BMVEVHcEwAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCgAuCiJMrqTAAAAGXRSTlMAPjFUyAR65yreCkqh0h2Gl4C+cGC0qzVGwlRn4wAAAF1JREFUGNOtzzkSgCAQRFGWgZ5hEQUV739SE7SILTt8ya9W6rcFu67RTbDhqPCP9M7SDDfoASlp2ExMfkAhzlWEaRugseuD9gtxgCvwhm0+wxv1AkFapuwSrXFfT9yAMwLxXv2KqQAAAABJRU5ErkJggg==
