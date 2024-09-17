@@ -7,10 +7,10 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+.pypirc
 .Python
 build/
 develop-eggs/
-dist/
 downloads/
 eggs/
 .eggs/
