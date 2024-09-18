@@ -1,7 +1,5 @@
 from typing import Any, Optional, Union
 
-from unify import Unify
-
 from promptflow.client import PFClient
 from promptflow.connections import CustomConnection
 from promptflow.core import tool
@@ -13,7 +11,7 @@ pf = PFClient()
 
 @tool
 def basic_chat(
-    connection: Union[CustomConnection, UnifyConnection, Unify],
+    connection: Union[CustomConnection, UnifyConnection],
     prompt: str = "Hello.",
     chat_history: Optional[list] = [],
     **kwargs: Any,

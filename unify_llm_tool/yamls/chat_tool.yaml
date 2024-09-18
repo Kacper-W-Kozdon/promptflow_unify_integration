@@ -3,7 +3,6 @@ unify_llm_tool.tools.chat_tool.basic_chat:
   inputs:
     connection:
       custom_type:
-        - Unify
         - UnifyConnection
       type:
         - CustomConnection
