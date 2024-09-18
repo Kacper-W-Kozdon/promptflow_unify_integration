@@ -7,7 +7,7 @@ unify_llm_tool.tools.chat_tool.basic_chat:
         - UnifyConnection
         - Unify
       default: unify_connection
-    message:
+    prompt:
       type: string
       optional: true
       default: "Hello."
