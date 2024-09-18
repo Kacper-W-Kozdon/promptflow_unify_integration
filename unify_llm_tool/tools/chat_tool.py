@@ -1,4 +1,4 @@
-from typing import Optional, Union
+from typing import Any, Optional, Union
 
 from unify import Unify
 
@@ -16,6 +16,7 @@ def basic_chat(
     connection: Union[CustomConnection, UnifyConnection, Unify],
     prompt: str = "Hello.",
     chat_history: Optional[list] = [],
+    **kwargs: Any,
 ) -> str:
     """
     Basic chat tool for custom connections and endpoints.
