@@ -10,6 +10,7 @@ unify_llm_tool.tools.chat_tool.basic_chat:
     message:
       type: string
       optional: true
+      default: "Hello."
     chat_history:
       type: list
       optional: true

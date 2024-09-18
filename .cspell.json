@@ -244,7 +244,8 @@
     "openaimodelconfiguration",
     "usecwd",
     "locustio",
-    "euap"
+    "euap",
+    "unifypf"
   ],
   "flagWords": [
     "Prompt Flow"
