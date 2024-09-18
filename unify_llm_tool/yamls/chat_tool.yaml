@@ -2,17 +2,18 @@ unify_llm_tool.tools.chat_tool.basic_chat:
   function: basic_chat
   inputs:
     connection:
-      type: CustomConnection
       custom_type:
         - UnifyConnection
-        - Unify
+      type:
+        - CustomConnection
       default: unify_connection
-    message:
-      type: string
-      optional: true
+    prompt:
+      type:
+        - string
       default: "Hello."
     chat_history:
-      type: list
+      type:
+        - list
       optional: true
       default: []
   module: unify_llm_tool.tools.chat_tool

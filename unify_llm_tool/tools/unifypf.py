@@ -6,7 +6,7 @@ from promptflow._internal import ToolProvider, register_apis, tool
 from promptflow.contracts.types import PromptTemplate
 from promptflow.tools.common import render_jinja_template  # noqa: F401
 from promptflow.tools.common import post_process_chat_api_response, process_function_call, to_bool, validate_functions
-from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, single_sign_on  # noqa: F401
+from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection
 
 try:
     from promptflow.tools.common import build_messages
