@@ -1,18 +1,27 @@
-from typing import Any, Optional
+from typing import Any, List, Optional, Union
 
 # Avoid circular dependencies: Use import 'from promptflow._internal' instead of 'from promptflow'
 # since the code here is in promptflow namespace as well
 from promptflow._internal import ToolProvider, register_apis, tool
 from promptflow.contracts.types import PromptTemplate
 from promptflow.tools.common import render_jinja_template  # noqa: F401
-from promptflow.tools.common import (
-    build_messages,
-    post_process_chat_api_response,
-    process_function_call,
-    to_bool,
-    validate_functions,
-)
+from promptflow.tools.common import post_process_chat_api_response, process_function_call, to_bool, validate_functions
 from unify_llm_tool.tools.single_sign_on_tool import UnifyConnection, single_sign_on  # noqa: F401
+
+try:
+    from promptflow.tools.common import build_messages
+except ImportError:
+    from promptflow.tools.common import parse_chat
+
+    def build_messages(
+        prompt: PromptTemplate,
+        images: Union[None, List] = None,
+    ) -> dict:
+        # keep_trailing_newline=True is to keep the last \n in the prompt to avoid converting "user:\t\n" to "user:".
+        chat_str = render_jinja_template(prompt, trim_blocks=True, keep_trailing_newline=True)
+        messages = parse_chat(chat_str, images=images)
+
+        return messages
 
 
 class UnifyPF(ToolProvider):
