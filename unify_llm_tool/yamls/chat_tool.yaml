@@ -2,7 +2,7 @@ unify_llm_tool.tools.chat_tool.basic_chat:
   function: basic_chat
   inputs:
     connection:
-      type: custom
+      type: CustomConnection
       custom_type:
         - UnifyConnection
         - Unify
