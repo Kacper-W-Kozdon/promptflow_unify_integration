@@ -8,10 +8,12 @@ unify_llm_tool.tools.chat_tool.basic_chat:
         - CustomConnection
       default: unify_connection
     prompt:
-      type: string
+      type:
+        - string
       default: "Hello."
     chat_history:
-      type: list
+      type:
+        - list
       optional: true
       default: []
   module: unify_llm_tool.tools.chat_tool
