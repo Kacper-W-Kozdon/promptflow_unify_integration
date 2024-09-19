@@ -27,6 +27,29 @@ except ImportError:
         return messages
 
 
+class Content:
+    content: str
+
+    def __init__(self, text: str) -> None:
+        self.content = text
+
+
+class Message:
+    message: Content
+
+    def __init__(self, text: str) -> None:
+        self.message = Content(text)
+
+
+class Completion:
+    choices: List[Message]
+
+    def __init__(self, message: str) -> None:
+        assert isinstance(message, str)
+        choices = [Message(message)]
+        self.choices = choices
+
+
 class UnifyPF(ToolProvider):
     def __init__(self, connection: UnifyConnection):
         super().__init__()
@@ -96,8 +119,9 @@ class UnifyPF(ToolProvider):
         if user:
             params["user"] = user
 
-        completion = self._client.generate(**params)
-        return post_process_chat_api_response(completion, stream, functions)
+        completion: str = self._client.generate(**params)
+        formatted_completion = Completion(f"assistant:\n {completion}")
+        return post_process_chat_api_response(formatted_completion, stream, functions)
 
 
 register_apis(UnifyPF)
