@@ -16,11 +16,12 @@ except ImportError:
     def build_messages(
         prompt: PromptTemplate,
         images: Union[None, List] = None,
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Any,
     ) -> dict:
         # keep_trailing_newline=True is to keep the last \n in the prompt to avoid converting "user:\t\n" to "user:".
-        chat_str = render_jinja_template(prompt, trim_blocks=True, keep_trailing_newline=True)
+        formatted_prompt: str = f"user:\n {prompt}"
+        chat_str = render_jinja_template(prompt=formatted_prompt, trim_blocks=True, keep_trailing_newline=True)
         messages = parse_chat(chat_str, images=images)
 
         return messages

@@ -16,7 +16,7 @@ outputs:
     reference: ${llm_node_6xs2.output}
   chat_out_unify:
     type: string
-    reference: ${Unify_Chat_kh4j.output}
+    reference: ${Unify_Chat_up9m.output}
 nodes:
 - name: Unify_SSO_ryr7
   type: python
@@ -40,7 +40,7 @@ nodes:
     model: ${Unify_SSO_ryr7.output}
   connection: unify_connection_openai
   api: chat
-- name: Unify_Chat_kh4j
+- name: Unify_Chat_up9m
   type: python
   source:
     type: package
