@@ -1,3 +1,4 @@
+import os
 from typing import Any, List, Optional, Union
 
 # Avoid circular dependencies: Use import 'from promptflow._internal' instead of 'from promptflow'
@@ -25,6 +26,9 @@ except ImportError:
         messages = parse_chat(chat_str, images=images)
 
         return messages
+
+
+os.environ["PF_DISABLE_TRACING"] = "true"
 
 
 class Content:
