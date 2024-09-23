@@ -1,5 +1,5 @@
 [project]
-name = "unify_integration_Kacper-W-Kozdon"
+name = "unify_integration"
 version = "0.1.1"
 authors = [
   { name="Kacper Kożdoń", email="k.kozdon@gmail.com" },
