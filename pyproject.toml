@@ -1,0 +1,20 @@
+[project]
+name = "unify_integration_Kacper-W-Kozdon"
+version = "0.1.1"
+authors = [
+  { name="Kacper Kożdoń", email="k.kozdon@gmail.com" },
+  { name="Kato Steven"},
+  { name="Omkar Khade"},
+]
+description = "The Unify tool package gives access to a single sign on client with multiple LLM endpoints and their metadata"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/Kacper-W-Kozdon/promptflow_unify_integration"
+Issues = "https://github.com/Kacper-W-Kozdon/promptflow_unify_integration/issues"
